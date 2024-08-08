@@ -32,5 +32,9 @@ class ThemeServiceValues {
     HexColor('E7F5FF'),
     HexColor('E7FFF1'),
   ];
-
+  static List<Color> colorValueList = [
+    Colors.pink.shade100,
+    Colors.blue.shade100,
+    Colors.green.shade100
+  ];
 }

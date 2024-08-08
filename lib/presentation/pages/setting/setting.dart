@@ -70,12 +70,12 @@ class _SettingPageState extends State<SettingPage> {
                              themeService.colorSeed = ThemeServiceValues.colorString[index];
                             },
                             child: Container(
-                                height: 60,
-                                width: 60,
+                                height: 50,
+                                width: 50,
                                 decoration: BoxDecoration(
                                   border: Border.all(color: Colors.black.withOpacity(0.2)),
                                   shape: BoxShape.circle,
-                                  color: ThemeServiceValues.colorValue[index],
+                                  color: ThemeServiceValues.colorValueList[index],
                                 ),
                                 child: themeService.colorSeed == ThemeServiceValues.colorString[index]
                                     ? const Icon(
