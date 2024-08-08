@@ -8,11 +8,31 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.4.3 <4.0.0'
 
-
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+
+  # Remote Data Source
+  dio: ^5.4.1
+  http: ^1.2.2
+  retrofit: ^4.1.0
+  retrofit_generator: ^8.1.0
+  json_annotation: ^4.8.1
+  json_serializable: ^6.7.1
+
+  # Build Generator
+  build_runner: ^2.4.11
+
+  # Shared Preferences
+  shared_preferences: ^2.2.2
+
+  # Dependency Injection
+  get_it: ^7.6.7
+
+  # Path Provider
+  path_provider: ^2.1.2
+  provider: ^6.1.1
 
   # Bloc State Management
   flutter_bloc: ^8.1.4

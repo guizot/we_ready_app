@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../calculator/calculator.dart';
+import '../setting/setting.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,73 +10,47 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
+  String titlePage = "Calculator";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(
-              MediaQuery.of(context).size.width,
-              MediaQuery.of(context).size.height * 0.175
-          ),
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.175,
-            color: Theme.of(context).colorScheme.primary,
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.05,
-              left: MediaQuery.of(context).size.width * 0.05,
-              right: MediaQuery.of(context).size.width * 0.05
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text.rich(
-                  TextSpan(
-                      children: [
-                        TextSpan(
-                            text: "The Wedding Of\n",
-                            style: TextStyle(
-                              fontSize: 16.0
-                            )
-                        ),
-                        TextSpan(
-                            text: "Jack & Gill",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24.0
-                            )
-                        )
-                      ]
-                  )
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(24.0)
-                        ),
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.black,
-                      )
-                  )
-                )
-              ],
-            )
-          ),
+        appBar: AppBar(
+          title: Text(titlePage),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Colors.transparent,
+          centerTitle: true,
+          actions: [
+            currentPageIndex != 3 ? Container(
+              margin: const EdgeInsets.only(right: 16.0),
+              child: IconButton(
+                icon: const Icon(Icons.add_circle_outline),
+                tooltip: 'Add',
+                onPressed: () { },
+              ),
+            ) : Container()
+          ],
         ),
         bottomNavigationBar: Stack(
           children: [
             NavigationBar(
-              backgroundColor: Theme.of(context).colorScheme.primary,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              indicatorColor: Theme.of(context).colorScheme.inversePrimary,
               onDestinationSelected: (int index) {
                 setState(() {
                   currentPageIndex = index;
+                  if(index == 0) {
+                    titlePage = "Calculator";
+                  }
+                  else if(index == 1) {
+                    titlePage = "Invitation";
+                  }
+                  else if(index == 2) {
+                    titlePage = "Rundown";
+                  }
+                  else if(index == 3) {
+                    titlePage = "Profile";
+                  }
                 });
               },
               elevation: 8.0,
@@ -109,23 +83,16 @@ class _HomePageState extends State<HomePage> {
         body: <Widget>[
           const CalculatorPage(),
           Container(
-              color: Theme.of(context).colorScheme.primary,
               child: const Center(
                 child: Text("INVITATION"),
               )
           ),
           Container(
-              color: Theme.of(context).colorScheme.primary,
               child: const Center(
                 child: Text("RUNDOWN"),
               )
           ),
-          Container(
-              color: Theme.of(context).colorScheme.primary,
-              child: const Center(
-                child: Text("PROFILE"),
-              )
-          ),
+          const SettingWrapperProvider()
         ][currentPageIndex],
     );
   }

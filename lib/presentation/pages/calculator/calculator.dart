@@ -10,31 +10,28 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Ink(
-      color: Theme.of(context).colorScheme.primary,
-      child: ListView.builder(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                Container(
-                  height: 150,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(24.0)
-                    ),
-                    color: Colors.grey.shade200,
+    return ListView.builder(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Container(
+                height: 150,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                      Radius.circular(24.0)
                   ),
+                  color: Theme.of(context).hoverColor,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.05,
-                )
-              ],
-            );
-          }
-      )
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.05,
+              )
+            ],
+          );
+        }
     );
   }
 
