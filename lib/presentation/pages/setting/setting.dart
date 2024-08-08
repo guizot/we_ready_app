@@ -59,6 +59,36 @@ class _SettingPageState extends State<SettingPage> {
                       )
                   )
               ),
+              CommonItem(
+                  title: "Theme Color",
+                  child: Wrap(
+                      spacing: 10,
+                      runSpacing: 0,
+                      children: List.generate(ThemeServiceValues.colorValue.length, (index) {
+                          return GestureDetector(
+                            onTap: () {
+                             themeService.colorSeed = ThemeServiceValues.colorString[index];
+                            },
+                            child: Container(
+                                height: 60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black.withOpacity(0.2)),
+                                  shape: BoxShape.circle,
+                                  color: ThemeServiceValues.colorValue[index],
+                                ),
+                                child: themeService.colorSeed == ThemeServiceValues.colorString[index]
+                                    ? const Icon(
+                                        Icons.check,
+                                        color: Colors.black,
+                                      )
+                                    : null
+                            )
+                          );
+                        }
+                      )
+                  )
+              ),
             ],
           );
         }

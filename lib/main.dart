@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:we_ready_app/presentation/core/constant/theme_service_values.dart';
 import 'package:we_ready_app/presentation/core/service/route_service.dart';
 import 'package:we_ready_app/presentation/core/service/theme_service.dart';
 import 'package:we_ready_app/injector.dart' as di;
@@ -33,8 +34,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'We Ready App',
-            theme: themeService.getLightTheme,
-            darkTheme: themeService.getDarkTheme,
+            theme: themeService.currentThemeData(ThemeServiceValues.light),
+            darkTheme: themeService.currentThemeData(ThemeServiceValues.dark),
             themeMode: themeService.currentThemeMode,
             onGenerateRoute: RouteService.generate,
           );

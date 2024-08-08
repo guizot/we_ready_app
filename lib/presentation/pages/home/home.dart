@@ -58,22 +58,22 @@ class _HomePageState extends State<HomePage> {
               destinations: const <Widget>[
                 NavigationDestination(
                   selectedIcon: Icon(Icons.home),
-                  icon: Icon(Icons.home_outlined),
+                  icon: Icon(Icons.home),
                   label: 'Calculator',
                 ),
                 NavigationDestination(
                   selectedIcon: Icon(Icons.groups_rounded),
-                  icon: Icon(Icons.groups_outlined),
+                  icon: Icon(Icons.groups_rounded),
                   label: 'Invitation',
                 ),
                 NavigationDestination(
                   selectedIcon: Icon(Icons.format_list_bulleted),
-                  icon: Icon(Icons.format_list_bulleted_outlined),
+                  icon: Icon(Icons.format_list_bulleted),
                   label: 'Rundown',
                 ),
                 NavigationDestination(
                   selectedIcon: Icon(Icons.person),
-                  icon: Icon(Icons.person_outline),
+                  icon: Icon(Icons.person),
                   label: 'Profile',
                 ),
               ],
