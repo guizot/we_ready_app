@@ -18,25 +18,31 @@ class DashedSeparator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final dashCount = (constraints.constrainWidth() / (dashWidth + dashSpace)).floor();
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(dashCount, (index) {
-            return SizedBox(
-              width: dashWidth,
-              height: height,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(thickness / 2),
-                ),
-              ),
+    return Column(
+      children: [
+        const SizedBox(height: 16.0),
+        LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final dashCount = (constraints.constrainWidth() / (dashWidth + dashSpace)).floor();
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(dashCount, (index) {
+                return SizedBox(
+                  width: dashWidth,
+                  height: height,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: color,
+                      borderRadius: BorderRadius.circular(thickness / 2),
+                    ),
+                  ),
+                );
+              }),
             );
-          }),
-        );
-      },
+          },
+        ),
+        const SizedBox(height: 16.0),
+      ],
     );
   }
 }

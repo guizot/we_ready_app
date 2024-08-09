@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/core/widget/ceremony_item.dart';
+import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
+import '../../core/widget/ceremony_calculator.dart';
 import '../../core/widget/header_item.dart';
 import '../../core/widget/vendor_item.dart';
 
@@ -19,23 +20,20 @@ class _CalculatorPageState extends State<CalculatorPage> {
           HeaderItem(
             name: "Jack & Gill",
           ),
-          CeremonyItem(
-              ceremonyName: "Acara Pernikahan"
+          CeremonyCalculator(
+            ceremonyName: "Acara Pernikahan"
           ),
           VendorItem(
             vendorName: "Joelle Decoration",
             vendorType: "Decoration",
             amount: "Rp 50.000.000",
+            icon: IconValues.partyPopper
           ),
           VendorItem(
-            vendorName: "Joelle Decoration",
-            vendorType: "Decoration",
-            amount: "Rp 50.000.000",
-          ),
-          VendorItem(
-            vendorName: "Joelle Decoration",
-            vendorType: "Decoration",
-            amount: "Rp 50.000.000",
+            vendorName: "Red Hat Organizer",
+            vendorType: "Wedding Organizer",
+            amount: "Rp 28.000.000",
+            icon: IconValues.megaphone
           ),
         ],
     );

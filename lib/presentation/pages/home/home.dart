@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:we_ready_app/presentation/pages/invitation/invitation.dart';
 import '../calculator/calculator.dart';
+import '../rundown/rundown.dart';
 import '../setting/setting.dart';
 
 class HomePage extends StatefulWidget {
@@ -82,12 +84,8 @@ class _HomePageState extends State<HomePage> {
         ),
         body: <Widget>[
           const CalculatorPage(),
-          const Center(
-            child: Text("INVITATION"),
-          ),
-          const Center(
-            child: Text("RUNDOWN"),
-          ),
+          const InvitationPage(),
+          const RundownPage(),
           const SettingWrapperProvider()
         ][currentPageIndex],
     );

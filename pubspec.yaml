@@ -49,6 +49,29 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/icons/Chart_Increasing.png
+    - assets/icons/Check_Mark_Button.png
+    - assets/icons/Cross_Mark.png
+    - assets/icons/Envelope.png
+    - assets/icons/Family_Man_Woman_Boy.png
+    - assets/icons/Family_Man_Woman_Girl_Boy.png
+    - assets/icons/High_Heeled_Shoe.png
+    - assets/icons/Hourglass_Done.png
+    - assets/icons/Large_Green_Circle.png
+    - assets/icons/Megaphone.png
+    - assets/icons/Money_Bag.png
+    - assets/icons/Money_With_Wings.png
+    - assets/icons/Page_Facing_Up.png
+    - assets/icons/Party_Popper.png
+    - assets/icons/Person_In_Tuxedo_Light_Skin_Tone.png
+    - assets/icons/Raising_Hands_Light_Skin_Tone.png
+    - assets/icons/Spiral_Calendar.png
+    - assets/icons/White_Circle.png
+    - assets/icons/Woman_And_Man_Holding_Hands_Medium_Light_Skin_Tone.png
+    - assets/icons/Woman_With_Veil_Light_Skin_Tone.png
+
+
   fonts:
     - family: Poppins
       fonts:

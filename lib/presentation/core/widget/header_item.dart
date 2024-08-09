@@ -50,10 +50,17 @@ class _HeaderItemState extends State<HeaderItem> {
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Icon(
-                    Icons.add_circle,
-                    size: 30,
-                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                      shape: BoxShape.circle
+                    ),
+                    padding: const EdgeInsets.all(4.0),
+                    child: const Icon(
+                      Icons.add,
+                      size: 24,
+                    ),
+                  )
                 ],
               ),
             ],

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'dashed_separator.dart';
 
 class VendorItem extends StatefulWidget {
-  const VendorItem({super.key, required this.vendorName, required this.vendorType, required this.amount });
+  const VendorItem({super.key, required this.vendorName, required this.vendorType, required this.amount, required this.icon });
   final String vendorName;
   final String vendorType;
   final String amount;
+  final String icon;
 
   @override
   State<VendorItem> createState() => _VendorItemState();
@@ -32,9 +32,10 @@ class _VendorItemState extends State<VendorItem> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.auto_fix_high_sharp,
-                    size: 15,
+                  Image.asset(
+                    widget.icon,
+                    height: 15,
+                    width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
@@ -52,11 +53,9 @@ class _VendorItemState extends State<VendorItem> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16.0),
               const DashedSeparator(
                 color: Colors.grey,
               ),
-              const SizedBox(height: 16.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
