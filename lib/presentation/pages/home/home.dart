@@ -20,16 +20,16 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Theme.of(context).colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           centerTitle: true,
-          actions: [
-            currentPageIndex != 3 ? Container(
-              margin: const EdgeInsets.only(right: 16.0),
-              child: IconButton(
-                icon: const Icon(Icons.add_circle_outline),
-                tooltip: 'Add',
-                onPressed: () { },
-              ),
-            ) : Container()
-          ],
+          // actions: [
+          //   currentPageIndex != 3 ? Container(
+          //     margin: const EdgeInsets.only(right: 16.0),
+          //     child: IconButton(
+          //       icon: const Icon(Icons.add_circle_outline),
+          //       tooltip: 'Add',
+          //       onPressed: () { },
+          //     ),
+          //   ) : Container()
+          // ],
         ),
         bottomNavigationBar: Stack(
           children: [
@@ -82,15 +82,11 @@ class _HomePageState extends State<HomePage> {
         ),
         body: <Widget>[
           const CalculatorPage(),
-          Container(
-              child: const Center(
-                child: Text("INVITATION"),
-              )
+          const Center(
+            child: Text("INVITATION"),
           ),
-          Container(
-              child: const Center(
-                child: Text("RUNDOWN"),
-              )
+          const Center(
+            child: Text("RUNDOWN"),
           ),
           const SettingWrapperProvider()
         ][currentPageIndex],
