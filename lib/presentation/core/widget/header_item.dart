@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HeaderItem extends StatefulWidget {
-  const HeaderItem({super.key, required this.name });
+  const HeaderItem({super.key, required this.name, required this.onAdd });
   final String name;
+  final Function onAdd;
 
   @override
   State<HeaderItem> createState() => _HeaderItemState();
@@ -50,16 +51,21 @@ class _HeaderItemState extends State<HeaderItem> {
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      shape: BoxShape.circle
-                    ),
-                    padding: const EdgeInsets.all(4.0),
-                    child: const Icon(
-                      Icons.add,
-                      size: 24,
-                    ),
+                  GestureDetector(
+                    onTap: () {
+                      widget.onAdd();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          shape: BoxShape.circle
+                      ),
+                      padding: const EdgeInsets.all(4.0),
+                      child: const Icon(
+                        Icons.add,
+                        size: 24,
+                      ),
+                    )
                   )
                 ],
               ),

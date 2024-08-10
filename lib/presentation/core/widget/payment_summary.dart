@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
+import '../constant/routes_values.dart';
+import 'common_separator.dart';
 
-import 'dashed_separator.dart';
-
-class CeremonyInvitation extends StatefulWidget {
-  const CeremonyInvitation({super.key, required this.ceremonyName });
-  final String ceremonyName;
+class PaymentSummary extends StatefulWidget {
+  const PaymentSummary({super.key, required this.vendorName });
+  final String vendorName;
 
   @override
-  State<CeremonyInvitation> createState() => _CeremonyInvitationState();
+  State<PaymentSummary> createState() => _PaymentSummaryState();
 }
 
-class _CeremonyInvitationState extends State<CeremonyInvitation> {
+class _PaymentSummaryState extends State<PaymentSummary> {
 
   @override
   Widget build(BuildContext context) {
@@ -40,33 +40,28 @@ class _CeremonyInvitationState extends State<CeremonyInvitation> {
                     ),
                     const SizedBox(width: 16.0),
                     Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.ceremonyName,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          const SizedBox(width: 4.0),
-                          const Icon(
-                            Icons.keyboard_arrow_down_sharp,
-                            size: 18,
-                          ),
-                        ],
+                      child: Text(
+                        widget.vendorName,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8.0),
-                    const Icon(
-                      Icons.settings,
-                      size: 18,
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, RoutesValues.vendorAdd, arguments: "123");
+                        },
+                        child: const Icon(
+                          Icons.settings,
+                          size: 18,
+                        )
                     ),
                   ],
                 ),
               ),
 
-              const DashedSeparator(
+              const CommonSeparator(
                 color: Colors.grey,
               ),
 
@@ -74,18 +69,18 @@ class _CeremonyInvitationState extends State<CeremonyInvitation> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.envelope,
+                    IconValues.moneyBag,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                        "Invitation"
+                        "Price"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("150")
+                  const Text("Rp 50.000.000")
                 ],
               ),
               const SizedBox(height: 8.0),
@@ -93,22 +88,22 @@ class _CeremonyInvitationState extends State<CeremonyInvitation> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.familyManWomanBoy,
+                    IconValues.pageFacingUp,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                      "Package"
+                      "Type"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("300 Pax")
+                  const Text("Wedding Organizer")
                 ],
               ),
 
-              const DashedSeparator(
+              const CommonSeparator(
                 color: Colors.grey,
               ),
 
@@ -116,18 +111,18 @@ class _CeremonyInvitationState extends State<CeremonyInvitation> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.largeGreenCircle,
+                    IconValues.checkMarkButton,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                        "Confirmed"
+                        "Paid"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("25")
+                  const Text("Rp 50.000.000")
                 ],
               ),
               const SizedBox(height: 8.0),
@@ -135,20 +130,21 @@ class _CeremonyInvitationState extends State<CeremonyInvitation> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.whiteCircle,
+                    IconValues.crossMark,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                        "Unconfirmed"
+                        "Unpaid"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("125")
+                  const Text("Rp 50.000.000")
                 ],
               ),
+
             ],
           ),
         ),

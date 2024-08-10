@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/pages/invitation/invitation.dart';
-import '../calculator/calculator.dart';
+import '../vendor/vendor.dart';
 import '../rundown/rundown.dart';
 import '../setting/setting.dart';
 
@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
-  String titlePage = "Calculator";
+  String titlePage = "Vendor";
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +22,6 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Theme.of(context).colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           centerTitle: true,
-          // actions: [
-          //   currentPageIndex != 3 ? Container(
-          //     margin: const EdgeInsets.only(right: 16.0),
-          //     child: IconButton(
-          //       icon: const Icon(Icons.add_circle_outline),
-          //       tooltip: 'Add',
-          //       onPressed: () { },
-          //     ),
-          //   ) : Container()
-          // ],
         ),
         bottomNavigationBar: Stack(
           children: [
@@ -42,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   currentPageIndex = index;
                   if(index == 0) {
-                    titlePage = "Calculator";
+                    titlePage = "Vendor";
                   }
                   else if(index == 1) {
                     titlePage = "Invitation";
@@ -61,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                 NavigationDestination(
                   selectedIcon: Icon(Icons.home),
                   icon: Icon(Icons.home),
-                  label: 'Calculator',
+                  label: 'Vendor',
                 ),
                 NavigationDestination(
                   selectedIcon: Icon(Icons.groups_rounded),
@@ -69,8 +59,8 @@ class _HomePageState extends State<HomePage> {
                   label: 'Invitation',
                 ),
                 NavigationDestination(
-                  selectedIcon: Icon(Icons.format_list_bulleted),
-                  icon: Icon(Icons.format_list_bulleted),
+                  selectedIcon: Icon(Icons.timelapse),
+                  icon: Icon(Icons.timelapse),
                   label: 'Rundown',
                 ),
                 NavigationDestination(
@@ -83,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: <Widget>[
-          const CalculatorPage(),
+          const VendorPage(),
           const InvitationPage(),
           const RundownPage(),
           const SettingWrapperProvider()

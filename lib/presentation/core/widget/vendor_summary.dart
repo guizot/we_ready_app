@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
+import 'package:we_ready_app/presentation/core/widget/vendor_item.dart';
+import '../constant/routes_values.dart';
+import '../handler/dialog_handler.dart';
+import 'common_separator.dart';
 
-import 'dashed_separator.dart';
-
-class CeremonyCalculator extends StatefulWidget {
-  const CeremonyCalculator({super.key, required this.ceremonyName });
+class VendorSummary extends StatefulWidget {
+  const VendorSummary({super.key, required this.ceremonyName });
   final String ceremonyName;
 
   @override
-  State<CeremonyCalculator> createState() => _CeremonyCalculatorState();
+  State<VendorSummary> createState() => _VendorSummaryState();
 }
 
-class _CeremonyCalculatorState extends State<CeremonyCalculator> {
+class _VendorSummaryState extends State<VendorSummary> {
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +30,34 @@ class _CeremonyCalculatorState extends State<CeremonyCalculator> {
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
           child: Column(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      IconValues.partyPopper,
-                      height: 18,
-                      width: 18,
-                    ),
-                    const SizedBox(width: 16.0),
-                    Expanded(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    IconValues.partyPopper,
+                    height: 18,
+                    width: 18,
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        DialogHandler.showBottomSheet(
+                            context: context,
+                            child: Container(
+                              padding: const EdgeInsets.all(16.0),
+                              child: const SizedBox(
+                                width: double.infinity,
+                                  child: VendorItem(
+                                      vendorName: "Red Hat Organizer",
+                                      vendorType: "Wedding Organizer",
+                                      amount: "Rp 28.000.000",
+                                      icon: IconValues.megaphone
+                                  )
+                              ),
+                            )
+                        );
+                      },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -57,16 +75,21 @@ class _CeremonyCalculatorState extends State<CeremonyCalculator> {
                         ],
                       ),
                     ),
-                    const SizedBox(width: 8.0),
-                    const Icon(
-                      Icons.settings,
-                      size: 18,
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesValues.ceremonyAdd, arguments: "123");
+                      },
+                      child: const Icon(
+                        Icons.settings,
+                        size: 18,
+                      )
+                  ),
+                ],
               ),
 
-              const DashedSeparator(
+              const CommonSeparator(
                 color: Colors.grey,
               ),
 
@@ -108,7 +131,7 @@ class _CeremonyCalculatorState extends State<CeremonyCalculator> {
                 ],
               ),
 
-              const DashedSeparator(
+              const CommonSeparator(
                 color: Colors.grey,
               ),
 
@@ -150,7 +173,7 @@ class _CeremonyCalculatorState extends State<CeremonyCalculator> {
                 ],
               ),
 
-              const DashedSeparator(
+              const CommonSeparator(
                 color: Colors.grey,
               ),
 

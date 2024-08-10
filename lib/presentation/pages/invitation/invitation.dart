@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../core/constant/icon_values.dart';
-import '../../core/widget/ceremony_invitation.dart';
+import '../../core/constant/routes_values.dart';
 import '../../core/widget/header_item.dart';
 import '../../core/widget/invitation_item.dart';
+import '../../core/widget/invitation_summary.dart';
 
 class InvitationPage extends StatefulWidget {
   const InvitationPage({super.key});
@@ -16,14 +17,17 @@ class _InvitationPageState extends State<InvitationPage> {
   Widget build(BuildContext context) {
     return ListView(
         padding: const EdgeInsets.all(16.0),
-        children: const [
+        children: [
           HeaderItem(
             name: "Jack & Gill",
+            onAdd: () {
+              Navigator.pushNamed(context, RoutesValues.invitationAdd);
+            },
           ),
-          CeremonyInvitation(
+          const InvitationSummary(
             ceremonyName: "Acara Pernikahan"
           ),
-          InvitationItem(
+          const InvitationItem(
             name: "Keluarga Bapak Indra",
             pax: 4,
             isConfirmed: true,
@@ -31,7 +35,7 @@ class _InvitationPageState extends State<InvitationPage> {
             invitationType: "Groom's Family",
             iconType: IconValues.personInTuxedoLightSkinTone
           ),
-          InvitationItem(
+          const InvitationItem(
             name: "Keluarga Bapak Jose",
             pax: 2,
             isConfirmed: false,
@@ -39,7 +43,7 @@ class _InvitationPageState extends State<InvitationPage> {
             invitationType: "Bride's Family",
             iconType: IconValues.womanWithVeilLightSkinTone
           ),
-          InvitationItem(
+          const InvitationItem(
             name: "Peter Parker",
             pax: 2,
             isConfirmed: true,
