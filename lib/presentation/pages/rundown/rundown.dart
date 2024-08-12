@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
-import 'package:we_ready_app/presentation/core/widget/rundown_item.dart';
-import 'package:we_ready_app/presentation/core/widget/rundown_summary.dart';
+import 'package:we_ready_app/presentation/pages/rundown/rundown_item.dart';
+import 'package:we_ready_app/presentation/pages/rundown/rundown_summary.dart';
 import '../../core/constant/routes_values.dart';
 import '../../core/widget/header_item.dart';
 

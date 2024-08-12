@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
-import '../constant/routes_values.dart';
-import 'common_separator.dart';
+import 'package:we_ready_app/presentation/core/constant/routes_values.dart';
+import '../../core/widget/common_separator.dart';
 
-class PaymentItem extends StatefulWidget {
-  const PaymentItem({super.key, required this.paymentCount, required this.amount, required this.date });
-  final String paymentCount;
+class VendorItem extends StatefulWidget {
+  const VendorItem({super.key, required this.vendorName, required this.vendorType, required this.amount, required this.icon });
+  final String vendorName;
+  final String vendorType;
   final String amount;
-  final String date;
+  final String icon;
 
   @override
-  State<PaymentItem> createState() => _PaymentItemState();
+  State<VendorItem> createState() => _VendorItemState();
 }
 
-class _PaymentItemState extends State<PaymentItem> {
+class _VendorItemState extends State<VendorItem> {
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, RoutesValues.paymentAdd, arguments: "123");
+        Navigator.pushNamed(context, RoutesValues.payment);
       },
       child: Column(
         children: [
@@ -38,14 +38,14 @@ class _PaymentItemState extends State<PaymentItem> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      IconValues.moneyWithWings,
+                      widget.icon,
                       height: 15,
                       width: 15,
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
-                        widget.paymentCount,
+                        widget.vendorName,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
@@ -64,22 +64,11 @@ class _PaymentItemState extends State<PaymentItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Expanded(
-                      child: Text("Amount"),
+                    Expanded(
+                      child: Text(widget.vendorType),
                     ),
                     const SizedBox(width: 8.0),
                     Text(widget.amount)
-                  ],
-                ),
-                const SizedBox(height: 8.0),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Expanded(
-                      child: Text("Date"),
-                    ),
-                    const SizedBox(width: 8.0),
-                    Text(widget.date)
                   ],
                 ),
               ],

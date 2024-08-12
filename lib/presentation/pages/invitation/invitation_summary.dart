@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
-import 'package:we_ready_app/presentation/core/widget/vendor_item.dart';
-import '../constant/routes_values.dart';
-import '../handler/dialog_handler.dart';
-import 'common_separator.dart';
+import '../../core/constant/routes_values.dart';
+import '../../core/widget/common_separator.dart';
+import '../home/ceremony_list.dart';
 
-class VendorSummary extends StatefulWidget {
-  const VendorSummary({super.key, required this.ceremonyName });
+class InvitationSummary extends StatefulWidget {
+  const InvitationSummary({super.key, required this.ceremonyName });
   final String ceremonyName;
 
   @override
-  State<VendorSummary> createState() => _VendorSummaryState();
+  State<InvitationSummary> createState() => _InvitationSummaryState();
 }
 
-class _VendorSummaryState extends State<VendorSummary> {
+class _InvitationSummaryState extends State<InvitationSummary> {
 
   @override
   Widget build(BuildContext context) {
@@ -41,23 +40,7 @@ class _VendorSummaryState extends State<VendorSummary> {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        DialogHandler.showBottomSheet(
-                            context: context,
-                            child: Container(
-                              padding: const EdgeInsets.all(16.0),
-                              child: const SizedBox(
-                                width: double.infinity,
-                                  child: VendorItem(
-                                      vendorName: "Red Hat Organizer",
-                                      vendorType: "Wedding Organizer",
-                                      amount: "Rp 28.000.000",
-                                      icon: IconValues.megaphone
-                                  )
-                              ),
-                            )
-                        );
-                      },
+                      onTap: () => const CeremonyList().show(context),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -85,7 +68,7 @@ class _VendorSummaryState extends State<VendorSummary> {
                         Icons.settings,
                         size: 18,
                       )
-                  ),
+                  )
                 ],
               ),
 
@@ -97,18 +80,18 @@ class _VendorSummaryState extends State<VendorSummary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.moneyBag,
+                    IconValues.envelope,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                        "Budget"
+                        "Invitation"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("Rp 50.000.000")
+                  const Text("150")
                 ],
               ),
               const SizedBox(height: 8.0),
@@ -116,18 +99,18 @@ class _VendorSummaryState extends State<VendorSummary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.chartIncreasing,
+                    IconValues.familyManWomanBoy,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                      "Over Budget"
+                      "Package"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("Rp 50.000.000")
+                  const Text("300 Pax")
                 ],
               ),
 
@@ -139,18 +122,18 @@ class _VendorSummaryState extends State<VendorSummary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.checkMarkButton,
+                    IconValues.largeGreenCircle,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                        "Paid"
+                        "Confirmed"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("Rp 50.000.000")
+                  const Text("25")
                 ],
               ),
               const SizedBox(height: 8.0),
@@ -158,35 +141,18 @@ class _VendorSummaryState extends State<VendorSummary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.crossMark,
+                    IconValues.whiteCircle,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                        "Unpaid"
+                        "Unconfirmed"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("Rp 50.000.000")
-                ],
-              ),
-
-              const CommonSeparator(
-                color: Colors.grey,
-              ),
-
-              const Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Text(
-                        "Calculated Vendor"
-                    ),
-                  ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 50.000.000")
+                  const Text("125")
                 ],
               ),
             ],

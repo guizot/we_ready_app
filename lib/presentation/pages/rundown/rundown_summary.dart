@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
-import 'package:we_ready_app/presentation/core/widget/rundown_item.dart';
-
-import '../constant/routes_values.dart';
-import '../handler/dialog_handler.dart';
+import '../../core/constant/routes_values.dart';
+import '../home/ceremony_list.dart';
 
 class RundownSummary extends StatefulWidget {
   const RundownSummary({super.key, required this.ceremonyName });
@@ -41,24 +39,7 @@ class _RundownSummaryState extends State<RundownSummary> {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        DialogHandler.showBottomSheet(
-                            context: context,
-                            child: Container(
-                              padding: const EdgeInsets.all(16.0),
-                              child: const SizedBox(
-                                  width: double.infinity,
-                                  child: RundownItem(
-                                    time: "09:00",
-                                    timeAmount: "1 Jam 30 Menit",
-                                    icon: IconValues.megaphone,
-                                    title: "Sungkeman Keluarga Groom",
-                                    subtitle: "Proses sungkeman dengan keluarga groom di ruangan Alila",
-                                  ),
-                              ),
-                            )
-                        );
-                      },
+                      onTap: () => const CeremonyList().show(context),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../constant/icon_values.dart';
-import '../constant/routes_values.dart';
-import 'common_separator.dart';
+import '../../core/constant/icon_values.dart';
+import '../../core/constant/routes_values.dart';
+import '../../core/widget/common_separator.dart';
 
 class RundownItem extends StatefulWidget {
   const RundownItem({super.key, required this.time, required this.timeAmount, required this.icon, required this.title, required this.subtitle });

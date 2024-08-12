@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../core/constant/icon_values.dart';
 import '../../core/constant/routes_values.dart';
 import '../../core/widget/header_item.dart';
-import '../../core/widget/invitation_item.dart';
-import '../../core/widget/invitation_summary.dart';
+import 'invitation_item.dart';
+import 'invitation_summary.dart';
 
 class InvitationPage extends StatefulWidget {
   const InvitationPage({super.key});

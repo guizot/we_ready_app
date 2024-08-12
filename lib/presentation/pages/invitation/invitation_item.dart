@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/widget/common_separator.dart';
-import '../constant/routes_values.dart';
+import '../../core/constant/routes_values.dart';
 
 class InvitationItem extends StatefulWidget {
   const InvitationItem({super.key, required this.name, required this.pax, required this.isConfirmed, required this.invitationType, required this.icon, required this.iconType });

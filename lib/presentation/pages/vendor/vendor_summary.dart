@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
-import '../constant/routes_values.dart';
-import 'common_separator.dart';
+import 'package:we_ready_app/presentation/pages/home/ceremony_list.dart';
+import '../../core/constant/routes_values.dart';
+import '../../core/widget/common_separator.dart';
 
-class PaymentSummary extends StatefulWidget {
-  const PaymentSummary({super.key, required this.vendorName });
-  final String vendorName;
+class VendorSummary extends StatefulWidget {
+  const VendorSummary({super.key, required this.ceremonyName });
+  final String ceremonyName;
 
   @override
-  State<PaymentSummary> createState() => _PaymentSummaryState();
+  State<VendorSummary> createState() => _VendorSummaryState();
 }
 
-class _PaymentSummaryState extends State<PaymentSummary> {
+class _VendorSummaryState extends State<VendorSummary> {
 
   @override
   Widget build(BuildContext context) {
@@ -28,37 +29,47 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
           child: Column(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      IconValues.partyPopper,
-                      height: 18,
-                      width: 18,
-                    ),
-                    const SizedBox(width: 16.0),
-                    Expanded(
-                      child: Text(
-                        widget.vendorName,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600
-                        ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    IconValues.partyPopper,
+                    height: 18,
+                    width: 18,
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => const CeremonyList().show(context),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.ceremonyName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600
+                            ),
+                          ),
+                          const SizedBox(width: 4.0),
+                          const Icon(
+                            Icons.keyboard_arrow_down_sharp,
+                            size: 18,
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(width: 8.0),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, RoutesValues.vendorAdd, arguments: "123");
-                        },
-                        child: const Icon(
-                          Icons.settings,
-                          size: 18,
-                        )
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesValues.ceremonyAdd, arguments: "123");
+                      },
+                      child: const Icon(
+                        Icons.settings,
+                        size: 18,
+                      )
+                  ),
+                ],
               ),
 
               const CommonSeparator(
@@ -76,7 +87,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                        "Price"
+                        "Budget"
                     ),
                   ),
                   const SizedBox(width: 8.0),
@@ -88,18 +99,18 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.pageFacingUp,
+                    IconValues.chartIncreasing,
                     height: 15,
                     width: 15,
                   ),
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                      "Type"
+                      "Over Budget"
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  const Text("Wedding Organizer")
+                  const Text("Rp 50.000.000")
                 ],
               ),
 
@@ -145,6 +156,22 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 ],
               ),
 
+              const CommonSeparator(
+                color: Colors.grey,
+              ),
+
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                        "Calculated Vendor"
+                    ),
+                  ),
+                  SizedBox(width: 8.0),
+                  Text("Rp 50.000.000")
+                ],
+              ),
             ],
           ),
         ),

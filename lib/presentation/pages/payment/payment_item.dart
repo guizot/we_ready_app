@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/core/constant/routes_values.dart';
-import 'common_separator.dart';
+import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
+import '../../core/constant/routes_values.dart';
+import '../../core/widget/common_separator.dart';
 
-class VendorItem extends StatefulWidget {
-  const VendorItem({super.key, required this.vendorName, required this.vendorType, required this.amount, required this.icon });
-  final String vendorName;
-  final String vendorType;
+class PaymentItem extends StatefulWidget {
+  const PaymentItem({super.key, required this.paymentCount, required this.amount, required this.date });
+  final String paymentCount;
   final String amount;
-  final String icon;
+  final String date;
 
   @override
-  State<VendorItem> createState() => _VendorItemState();
+  State<PaymentItem> createState() => _PaymentItemState();
 }
 
-class _VendorItemState extends State<VendorItem> {
+class _PaymentItemState extends State<PaymentItem> {
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, RoutesValues.payment);
+        Navigator.pushNamed(context, RoutesValues.paymentAdd, arguments: "123");
       },
       child: Column(
         children: [
@@ -38,14 +38,14 @@ class _VendorItemState extends State<VendorItem> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      widget.icon,
+                      IconValues.moneyWithWings,
                       height: 15,
                       width: 15,
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
-                        widget.vendorName,
+                        widget.paymentCount,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
@@ -64,11 +64,22 @@ class _VendorItemState extends State<VendorItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Text(widget.vendorType),
+                    const Expanded(
+                      child: Text("Amount"),
                     ),
                     const SizedBox(width: 8.0),
                     Text(widget.amount)
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Expanded(
+                      child: Text("Date"),
+                    ),
+                    const SizedBox(width: 8.0),
+                    Text(widget.date)
                   ],
                 ),
               ],

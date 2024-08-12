@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/core/widget/payment_item.dart';
+import 'package:we_ready_app/presentation/pages/payment/payment_item.dart';
 import '../../core/constant/routes_values.dart';
-import '../../core/widget/payment_summary.dart';
+import 'payment_summary.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
