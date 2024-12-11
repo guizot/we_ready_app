@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
-  String titlePage = "Vendor";
+  String titlePage = "Summary";
 
   @override
   Widget build(BuildContext context) {
@@ -32,22 +32,27 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   currentPageIndex = index;
                   if(index == 0) {
-                    titlePage = "Vendor";
+                    titlePage = "Summary";
                   }
                   else if(index == 1) {
-                    titlePage = "Invitation";
+                    titlePage = "Vendor";
                   }
                   else if(index == 2) {
-                    titlePage = "Rundown";
+                    titlePage = "Invitation";
                   }
                   else if(index == 3) {
-                    titlePage = "Profile";
+                    titlePage = "Rundown";
                   }
                 });
               },
               elevation: 8.0,
               selectedIndex: currentPageIndex,
               destinations: const <Widget>[
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.all_inclusive),
+                  icon: Icon(Icons.all_inclusive),
+                  label: 'Summary',
+                ),
                 NavigationDestination(
                   selectedIcon: Icon(Icons.home),
                   icon: Icon(Icons.home),
@@ -63,20 +68,15 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.timelapse),
                   label: 'Rundown',
                 ),
-                NavigationDestination(
-                  selectedIcon: Icon(Icons.person),
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                ),
               ],
             )
           ],
         ),
         body: <Widget>[
+          const SettingWrapperProvider(),
           const VendorPage(),
           const InvitationPage(),
           const RundownPage(),
-          const SettingWrapperProvider()
         ][currentPageIndex],
     );
   }

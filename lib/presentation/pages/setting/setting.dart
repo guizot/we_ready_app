@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import '../../../injector.dart';
+import '../../core/constant/routes_values.dart';
 import '../../core/constant/theme_service_values.dart';
 import '../../core/service/theme_service.dart';
 import '../../core/widget/common_item.dart';
+import '../../core/widget/header_item.dart';
+import '../home/ceremony_switch.dart';
+import '../invitation/invitation_summary.dart';
+import '../vendor/vendor_summary.dart';
 import 'cubit/setting_cubit.dart';
 
 class SettingWrapperProvider extends StatelessWidget {
@@ -34,6 +39,21 @@ class _SettingPageState extends State<SettingPage> {
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
+              HeaderItem(
+                name: "Jack & Gill",
+                onAdd: () {
+                  Navigator.pushNamed(context, RoutesValues.vendorAdd);
+                },
+              ),
+              const CeremonySwitch(
+                  ceremonyName: "Acara Pernikahan"
+              ),
+              const VendorSummary(
+                  name: "Vendor Summary"
+              ),
+              const InvitationSummary(
+                  name: "Invitation Summary"
+              ),
               CommonItem(
                   title: "Theme Mode",
                   child: Wrap(

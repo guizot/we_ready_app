@@ -5,8 +5,8 @@ import '../../core/constant/routes_values.dart';
 import '../../core/widget/common_separator.dart';
 
 class VendorSummary extends StatefulWidget {
-  const VendorSummary({super.key, required this.ceremonyName });
-  final String ceremonyName;
+  const VendorSummary({super.key, required this.name });
+  final String name;
 
   @override
   State<VendorSummary> createState() => _VendorSummaryState();
@@ -33,31 +33,18 @@ class _VendorSummaryState extends State<VendorSummary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    IconValues.partyPopper,
+                    IconValues.whiteCircle,
                     height: 18,
                     width: 18,
                   ),
                   const SizedBox(width: 16.0),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () => const CeremonyList().show(context),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.ceremonyName,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          const SizedBox(width: 4.0),
-                          const Icon(
-                            Icons.keyboard_arrow_down_sharp,
-                            size: 18,
-                          ),
-                        ],
+                    child: Text(
+                      widget.name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600
                       ),
-                    ),
+                    )
                   ),
                   const SizedBox(width: 8.0),
                   GestureDetector(
@@ -68,7 +55,7 @@ class _VendorSummaryState extends State<VendorSummary> {
                         Icons.settings,
                         size: 18,
                       )
-                  ),
+                  )
                 ],
               ),
 
@@ -165,7 +152,7 @@ class _VendorSummaryState extends State<VendorSummary> {
                 children: [
                   Expanded(
                     child: Text(
-                        "Calculated Vendor"
+                        "All Vendor"
                     ),
                   ),
                   SizedBox(width: 8.0),

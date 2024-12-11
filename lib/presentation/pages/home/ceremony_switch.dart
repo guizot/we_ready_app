@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
 import '../../core/constant/routes_values.dart';
-import '../home/ceremony_list.dart';
+import 'ceremony_list.dart';
 
-class RundownSummary extends StatefulWidget {
-  const RundownSummary({super.key, required this.ceremonyName });
+class CeremonySwitch extends StatefulWidget {
+  const CeremonySwitch({super.key, required this.ceremonyName });
   final String ceremonyName;
 
   @override
-  State<RundownSummary> createState() => _RundownSummaryState();
+  State<CeremonySwitch> createState() => _CeremonySwitchState();
 }
 
-class _RundownSummaryState extends State<RundownSummary> {
+class _CeremonySwitchState extends State<CeremonySwitch> {
 
   @override
   Widget build(BuildContext context) {

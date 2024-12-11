@@ -33,15 +33,6 @@ class _VendorPageState extends State<VendorPage> {
     return ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          HeaderItem(
-            name: "Jack & Gill",
-            onAdd: () {
-              Navigator.pushNamed(context, RoutesValues.vendorAdd);
-            },
-          ),
-          const VendorSummary(
-            ceremonyName: "Acara Pernikahan"
-          ),
           ...vendorItems.map((item) => VendorItem(
             vendorName: item['vendorName'],
             vendorType: item['vendorType'],
