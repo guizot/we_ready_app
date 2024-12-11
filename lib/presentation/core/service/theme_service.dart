@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../data/core/const/shared_preferences_values.dart';
-import '../../../data/data_source/shared/shared_preferences_data_source.dart';
+import '../../../data/datasource/shared/shared_preferences_data_source.dart';
 import '../constant/theme_service_values.dart';
 
 class ThemeService extends ChangeNotifier {

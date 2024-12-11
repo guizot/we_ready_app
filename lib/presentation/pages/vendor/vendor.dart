@@ -13,6 +13,21 @@ class VendorPage extends StatefulWidget {
 
 class _VendorPageState extends State<VendorPage> {
 
+  final List<Map<String, dynamic>> vendorItems = [
+    {
+      "vendorName": "Joelle Decoration",
+      "vendorType": "Decoration",
+      "amount": "Rp 50.000.000",
+      "icon": IconValues.partyPopper,
+    },
+    {
+      "vendorName": "Red Hat Organizer",
+      "vendorType": "Wedding Organizer",
+      "amount": "Rp 28.000.000",
+      "icon": IconValues.megaphone,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -27,18 +42,12 @@ class _VendorPageState extends State<VendorPage> {
           const VendorSummary(
             ceremonyName: "Acara Pernikahan"
           ),
-          const VendorItem(
-            vendorName: "Joelle Decoration",
-            vendorType: "Decoration",
-            amount: "Rp 50.000.000",
-            icon: IconValues.partyPopper
-          ),
-          const VendorItem(
-            vendorName: "Red Hat Organizer",
-            vendorType: "Wedding Organizer",
-            amount: "Rp 28.000.000",
-            icon: IconValues.megaphone
-          ),
+          ...vendorItems.map((item) => VendorItem(
+            vendorName: item['vendorName'],
+            vendorType: item['vendorType'],
+            amount: item['amount'],
+            icon: item['icon'],
+          )),
         ],
     );
   }
