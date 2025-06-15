@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'common_separator.dart';
+
 class CommonItem extends StatefulWidget {
-  const CommonItem({super.key, required this.title, required this.child, this.timestamp });
+  const CommonItem({super.key, required this.title, required this.icon, required this.child, this.timestamp });
   final String title;
+  final IconData icon;
   final Widget child;
   final String? timestamp;
 
@@ -33,26 +36,29 @@ class _CommonItemState extends State<CommonItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Text(
-                          widget.title,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18
-                          ),
-                        ),
+                      Icon(
+                        widget.icon,
+                        size: 18,
                       ),
-                      widget.timestamp != null ? Text(
-                        widget.timestamp!,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 14
-                        ),
-                      ) : Container(),
+                      const SizedBox(width: 8.0),
+                      Expanded(
+                          child: Text(
+                            widget.title,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600
+                            ),
+                          )
+                      ),
+                      const SizedBox(width: 8.0),
                     ],
                   ),
-                  const SizedBox(height: 12),
+
+                  const CommonSeparator(
+                    color: Colors.grey,
+                  ),
+
                   widget.child
                 ],
               ),

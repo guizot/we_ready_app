@@ -33,12 +33,16 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      IconValues.partyPopper,
-                      height: 18,
-                      width: 18,
+                    // Image.asset(
+                    //   IconValues.partyPopper,
+                    //   height: 18,
+                    //   width: 18,
+                    // ),
+                    const Icon(
+                      Icons.arrow_circle_right,
+                      size: 18,
                     ),
-                    const SizedBox(width: 16.0),
+                    const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
                         widget.vendorName,
@@ -47,16 +51,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8.0),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, RoutesValues.vendorAdd, arguments: "123");
-                        },
-                        child: const Icon(
-                          Icons.settings,
-                          size: 18,
-                        )
-                    ),
+                    const SizedBox(width: 8.0)
                   ],
                 ),
               ),
@@ -65,41 +60,49 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 color: Colors.grey,
               ),
 
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.moneyBag,
-                    height: 15,
-                    width: 15,
+                  // Image.asset(
+                  //   IconValues.moneyBag,
+                  //   height: 15,
+                  //   width: 15,
+                  // ),
+                  Icon(
+                    Icons.price_change_rounded,
+                    size: 18,
                   ),
-                  const SizedBox(width: 8.0),
-                  const Expanded(
+                  SizedBox(width: 8.0),
+                  Expanded(
                     child: Text(
                         "Price"
                     ),
                   ),
-                  const SizedBox(width: 8.0),
-                  const Text("Rp 50.000.000")
+                  SizedBox(width: 8.0),
+                  Text("Rp 50.000.000")
                 ],
               ),
               const SizedBox(height: 8.0),
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.pageFacingUp,
-                    height: 15,
-                    width: 15,
+                  // Image.asset(
+                  //   IconValues.pageFacingUp,
+                  //   height: 15,
+                  //   width: 15,
+                  // ),
+                  Icon(
+                    Icons.list_alt_rounded,
+                    size: 18,
                   ),
-                  const SizedBox(width: 8.0),
-                  const Expanded(
+                  SizedBox(width: 8.0),
+                  Expanded(
                     child: Text(
                       "Type"
                     ),
                   ),
-                  const SizedBox(width: 8.0),
-                  const Text("Wedding Organizer")
+                  SizedBox(width: 8.0),
+                  Text("Wedding Organizer")
                 ],
               ),
 
@@ -107,41 +110,49 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 color: Colors.grey,
               ),
 
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.checkMarkButton,
-                    height: 15,
-                    width: 15,
+                  // Image.asset(
+                  //   IconValues.checkMarkButton,
+                  //   height: 15,
+                  //   width: 15,
+                  // ),
+                  Icon(
+                    Icons.check_circle,
+                    size: 18,
                   ),
-                  const SizedBox(width: 8.0),
-                  const Expanded(
+                  SizedBox(width: 8.0),
+                  Expanded(
                     child: Text(
                         "Paid"
                     ),
                   ),
-                  const SizedBox(width: 8.0),
-                  const Text("Rp 50.000.000")
+                  SizedBox(width: 8.0),
+                  Text("Rp 50.000.000")
                 ],
               ),
               const SizedBox(height: 8.0),
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.crossMark,
-                    height: 15,
-                    width: 15,
+                  // Image.asset(
+                  //   IconValues.crossMark,
+                  //   height: 15,
+                  //   width: 15,
+                  // ),
+                  Icon(
+                    Icons.check_circle_outline,
+                    size: 18,
                   ),
-                  const SizedBox(width: 8.0),
-                  const Expanded(
+                  SizedBox(width: 8.0),
+                  Expanded(
                     child: Text(
                         "Unpaid"
                     ),
                   ),
-                  const SizedBox(width: 8.0),
-                  const Text("Rp 50.000.000")
+                  SizedBox(width: 8.0),
+                  Text("Rp 50.000.000")
                 ],
               ),
 

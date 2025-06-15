@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
-import '../../core/constant/routes_values.dart';
 import '../../core/widget/common_separator.dart';
-import '../home/ceremony_list.dart';
 
 class InvitationSummary extends StatefulWidget {
   const InvitationSummary({super.key, required this.name });
@@ -32,12 +29,16 @@ class _InvitationSummaryState extends State<InvitationSummary> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.whiteCircle,
-                    height: 18,
-                    width: 18,
+                  // Image.asset(
+                  //   IconValues.whiteCircle,
+                  //   height: 18,
+                  //   width: 18,
+                  // ),
+                  const Icon(
+                    Icons.groups_rounded,
+                    size: 18,
                   ),
-                  const SizedBox(width: 16.0),
+                  const SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
                       widget.name,
@@ -47,15 +48,6 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                     )
                   ),
                   const SizedBox(width: 8.0),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, RoutesValues.ceremonyAdd, arguments: "123");
-                      },
-                      child: const Icon(
-                        Icons.settings,
-                        size: 18,
-                      )
-                  )
                 ],
               ),
 
@@ -63,41 +55,49 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                 color: Colors.grey,
               ),
 
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.envelope,
-                    height: 15,
-                    width: 15,
+                  // Image.asset(
+                  //   IconValues.envelope,
+                  //   height: 15,
+                  //   width: 15,
+                  // ),
+                  Icon(
+                    Icons.mail,
+                    size: 18,
                   ),
-                  const SizedBox(width: 8.0),
-                  const Expanded(
+                  SizedBox(width: 8.0),
+                  Expanded(
                     child: Text(
                         "Invitation"
                     ),
                   ),
-                  const SizedBox(width: 8.0),
-                  const Text("150")
+                  SizedBox(width: 8.0),
+                  Text("150 Mails")
                 ],
               ),
               const SizedBox(height: 8.0),
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.familyManWomanBoy,
-                    height: 15,
-                    width: 15,
+                  // Image.asset(
+                  //   IconValues.familyManWomanBoy,
+                  //   height: 15,
+                  //   width: 15,
+                  // ),
+                  Icon(
+                    Icons.people_alt_rounded,
+                    size: 18,
                   ),
-                  const SizedBox(width: 8.0),
-                  const Expanded(
+                  SizedBox(width: 8.0),
+                  Expanded(
                     child: Text(
-                      "Package"
+                      "Total"
                     ),
                   ),
-                  const SizedBox(width: 8.0),
-                  const Text("300 Pax")
+                  SizedBox(width: 8.0),
+                  Text("300 Peoples")
                 ],
               ),
 
@@ -105,41 +105,49 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                 color: Colors.grey,
               ),
 
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.largeGreenCircle,
-                    height: 15,
-                    width: 15,
+                  // Image.asset(
+                  //   IconValues.largeGreenCircle,
+                  //   height: 15,
+                  //   width: 15,
+                  // ),
+                  Icon(
+                    Icons.contact_page,
+                    size: 18,
                   ),
-                  const SizedBox(width: 8.0),
-                  const Expanded(
+                  SizedBox(width: 8.0),
+                  Expanded(
                     child: Text(
                         "Confirmed"
                     ),
                   ),
-                  const SizedBox(width: 8.0),
-                  const Text("25")
+                  SizedBox(width: 8.0),
+                  Text("25")
                 ],
               ),
               const SizedBox(height: 8.0),
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    IconValues.whiteCircle,
-                    height: 15,
-                    width: 15,
+                  // Image.asset(
+                  //   IconValues.whiteCircle,
+                  //   height: 15,
+                  //   width: 15,
+                  // ),
+                  Icon(
+                    Icons.contact_page_outlined,
+                    size: 18,
                   ),
-                  const SizedBox(width: 8.0),
-                  const Expanded(
+                  SizedBox(width: 8.0),
+                  Expanded(
                     child: Text(
                         "Unconfirmed"
                     ),
                   ),
-                  const SizedBox(width: 8.0),
-                  const Text("125")
+                  SizedBox(width: 8.0),
+                  Text("125")
                 ],
               ),
             ],

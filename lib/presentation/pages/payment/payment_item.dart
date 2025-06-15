@@ -37,10 +37,14 @@ class _PaymentItemState extends State<PaymentItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      IconValues.moneyWithWings,
-                      height: 15,
-                      width: 15,
+                    // Image.asset(
+                    //   IconValues.moneyWithWings,
+                    //   height: 15,
+                    //   width: 15,
+                    // ),
+                    const Icon(
+                      Icons.attach_money,
+                      size: 18,
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(

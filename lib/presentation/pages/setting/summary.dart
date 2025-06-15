@@ -7,30 +7,31 @@ import '../../core/constant/theme_service_values.dart';
 import '../../core/service/theme_service.dart';
 import '../../core/widget/common_item.dart';
 import '../../core/widget/header_item.dart';
-import '../home/ceremony_switch.dart';
+import '../ceremony/ceremony_switch.dart';
 import '../invitation/invitation_summary.dart';
+import '../rundown/rundown_summary.dart';
 import '../vendor/vendor_summary.dart';
-import 'cubit/setting_cubit.dart';
+import 'cubit/summary_cubit.dart';
 
-class SettingWrapperProvider extends StatelessWidget {
-  const SettingWrapperProvider({super.key});
+class SummaryWrapperProvider extends StatelessWidget {
+  const SummaryWrapperProvider({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<SettingCubit>(),
-      child: const SettingPage(),
+      create: (context) => sl<SummaryCubit>(),
+      child: const SummaryPage(),
     );
   }
 }
 
-class SettingPage extends StatefulWidget {
-  const SettingPage({super.key});
+class SummaryPage extends StatefulWidget {
+  const SummaryPage({super.key});
   @override
-  State<SettingPage> createState() => _SettingPageState();
+  State<SummaryPage> createState() => _SummaryPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
+class _SummaryPageState extends State<SummaryPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +40,12 @@ class _SettingPageState extends State<SettingPage> {
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              HeaderItem(
-                name: "Jack & Gill",
-                onAdd: () {
-                  Navigator.pushNamed(context, RoutesValues.vendorAdd);
-                },
-              ),
+              // HeaderItem(
+              //   name: "Jack & Gill",
+              //   onAdd: () {
+              //     Navigator.pushNamed(context, RoutesValues.vendorAdd);
+              //   },
+              // ),
               const CeremonySwitch(
                   ceremonyName: "Acara Pernikahan"
               ),
@@ -54,8 +55,12 @@ class _SettingPageState extends State<SettingPage> {
               const InvitationSummary(
                   name: "Invitation Summary"
               ),
+              const RundownSummary(
+                  name: "Rundown Summary"
+              ),
               CommonItem(
                   title: "Theme Mode",
+                  icon: Icons.dark_mode_rounded,
                   child: Wrap(
                       spacing: 10,
                       runSpacing: 0,
@@ -79,36 +84,37 @@ class _SettingPageState extends State<SettingPage> {
                       )
                   )
               ),
-              CommonItem(
-                  title: "Theme Color",
-                  child: Wrap(
-                      spacing: 10,
-                      runSpacing: 0,
-                      children: List.generate(ThemeServiceValues.colorValue.length, (index) {
-                          return GestureDetector(
-                            onTap: () {
-                             themeService.colorSeed = ThemeServiceValues.colorString[index];
-                            },
-                            child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black.withOpacity(0.2)),
-                                  shape: BoxShape.circle,
-                                  color: ThemeServiceValues.colorValueList[index],
-                                ),
-                                child: themeService.colorSeed == ThemeServiceValues.colorString[index]
-                                    ? const Icon(
-                                        Icons.check,
-                                        color: Colors.black,
-                                      )
-                                    : null
-                            )
-                          );
-                        }
-                      )
-                  )
-              ),
+              // CommonItem(
+              //     title: "Theme Color",
+              //     icon: Icons.color_lens_rounded,
+              //     child: Wrap(
+              //         spacing: 10,
+              //         runSpacing: 0,
+              //         children: List.generate(ThemeServiceValues.colorValue.length, (index) {
+              //             return GestureDetector(
+              //               onTap: () {
+              //                themeService.colorSeed = ThemeServiceValues.colorString[index];
+              //               },
+              //               child: Container(
+              //                   height: 50,
+              //                   width: 50,
+              //                   decoration: BoxDecoration(
+              //                     border: Border.all(color: Colors.black.withOpacity(0.2)),
+              //                     shape: BoxShape.circle,
+              //                     color: ThemeServiceValues.colorValueList[index],
+              //                   ),
+              //                   child: themeService.colorSeed == ThemeServiceValues.colorString[index]
+              //                       ? const Icon(
+              //                           Icons.check,
+              //                           color: Colors.black,
+              //                         )
+              //                       : null
+              //               )
+              //             );
+              //           }
+              //         )
+              //     )
+              // ),
             ],
           );
         }

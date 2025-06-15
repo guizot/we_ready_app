@@ -39,10 +39,14 @@ class _RundownItemState extends State<RundownItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      IconValues.hourglassDone,
-                      height: 15,
-                      width: 15,
+                    // Image.asset(
+                    //   IconValues.hourglassDone,
+                    //   height: 15,
+                    //   width: 15,
+                    // ),
+                    const Icon(
+                      Icons.access_time_filled_rounded,
+                      size: 18,
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
@@ -54,20 +58,9 @@ class _RundownItemState extends State<RundownItem> {
                                 fontWeight: FontWeight.w600
                             ),
                           ),
-                          const SizedBox(width: 8.0),
-                          Container(
-                              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.inversePrimary,
-                                  borderRadius: const BorderRadius.all(Radius.circular(25.0))
-                              ),
-                              child: Text(
-                                widget.timeAmount,
-                                style: const TextStyle(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w600
-                                ),
-                              )
+                          const SizedBox(width: 6.0),
+                          Text(
+                            "(${widget.timeAmount})",
                           ),
                         ],
                       ),
@@ -87,10 +80,14 @@ class _RundownItemState extends State<RundownItem> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          widget.icon,
-                          height: 15,
-                          width: 15,
+                        // Image.asset(
+                        //   widget.icon,
+                        //   height: 15,
+                        //   width: 15,
+                        // ),
+                        const Icon(
+                          Icons.arrow_circle_right_outlined,
+                          size: 18,
                         ),
                         const SizedBox(width: 8.0),
                         Expanded(
@@ -103,11 +100,11 @@ class _RundownItemState extends State<RundownItem> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8.0),
+                    const SizedBox(height: 4.0),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(width: 23.0),
+                        const SizedBox(width: 28.0),
                         Expanded(
                           child: Text(
                             widget.subtitle,

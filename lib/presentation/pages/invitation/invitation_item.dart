@@ -39,18 +39,30 @@ class _InvitationItemState extends State<InvitationItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      widget.icon,
-                      height: 15,
-                      width: 15,
+                    // Image.asset(
+                    //   widget.icon,
+                    //   height: 15,
+                    //   width: 15,
+                    // ),
+                    const Icon(
+                      Icons.account_circle_rounded,
+                      size: 18,
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
-                      child: Text(
-                        "${widget.name} (${widget.pax} Pax)",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600
-                        ),
+                      child: Row(
+                        children: [
+                          Text(
+                            widget.name,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600
+                            ),
+                          ),
+                          const SizedBox(width: 6.0),
+                          Text(
+                            "(${widget.pax} Pax)",
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(width: 8.0),
@@ -70,19 +82,13 @@ class _InvitationItemState extends State<InvitationItem> {
                     Expanded(
                         child: Row(
                           children: [
-                            Container(
-                                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-                                decoration: BoxDecoration(
-                                    color: widget.isConfirmed ? Theme.of(context).colorScheme.inversePrimary : Theme.of(context).colorScheme.surfaceDim,
-                                    borderRadius: const BorderRadius.all(Radius.circular(25.0))
-                                ),
-                                child: Text(
-                                  widget.isConfirmed ? "Confirmed" : "Unconfirmed",
-                                  style: const TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w600
-                                  ),
-                                )
+                            Icon(
+                              widget.isConfirmed ? Icons.check_circle_outline_rounded : Icons.remove_circle_outline_rounded,
+                              size: 18,
+                            ),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              widget.isConfirmed ? "Confirmed" : "Unconfirmed",
                             )
                           ],
                         )
@@ -90,12 +96,12 @@ class _InvitationItemState extends State<InvitationItem> {
                     const SizedBox(width: 8.0),
                     Row(
                       children: [
-                        Image.asset(
-                          widget.iconType,
-                          height: 15,
-                          width: 15,
-                        ),
-                        const SizedBox(width: 8.0),
+                        // Image.asset(
+                        //   widget.iconType,
+                        //   height: 15,
+                        //   width: 15,
+                        // ),
+                        // const SizedBox(width: 8.0),
                         Text(widget.invitationType)
                       ],
                     )

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../core/widget/common_separator.dart';
 
-class VendorSummary extends StatefulWidget {
-  const VendorSummary({super.key, required this.name });
+class RundownSummary extends StatefulWidget {
+  const RundownSummary({super.key, required this.name });
   final String name;
 
   @override
-  State<VendorSummary> createState() => _VendorSummaryState();
+  State<RundownSummary> createState() => _RundownSummaryState();
 }
 
-class _VendorSummaryState extends State<VendorSummary> {
+class _RundownSummaryState extends State<RundownSummary> {
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,13 @@ class _VendorSummaryState extends State<VendorSummary> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Image.asset(
+                  //   IconValues.whiteCircle,
+                  //   height: 18,
+                  //   width: 18,
+                  // ),
                   const Icon(
-                    Icons.home,
+                    Icons.timelapse,
                     size: 18,
                   ),
                   const SizedBox(width: 8.0),
@@ -38,7 +43,7 @@ class _VendorSummaryState extends State<VendorSummary> {
                     child: Text(
                       widget.name,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w600
+                        fontWeight: FontWeight.w600
                       ),
                     )
                   ),
@@ -53,96 +58,54 @@ class _VendorSummaryState extends State<VendorSummary> {
               const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   IconValues.moneyBag,
-                  //   height: 15,
-                  //   width: 15,
-                  // ),
                   Icon(
-                    Icons.paid,
+                    Icons.timeline_rounded,
                     size: 18,
                   ),
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
-                        "Budget"
+                        "Session"
                     ),
                   ),
                   SizedBox(width: 8.0),
-                  Text("Rp 200.000.000")
+                  Text("7 Sessions")
                 ],
               ),
               const SizedBox(height: 8.0),
               const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   IconValues.chartIncreasing,
-                  //   height: 15,
-                  //   width: 15,
-                  // ),
                   Icon(
-                    Icons.paid_outlined,
+                    Icons.hourglass_bottom_rounded,
                     size: 18,
                   ),
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
-                      "Over Budget"
+                        "Total Hours"
                     ),
                   ),
                   SizedBox(width: 8.0),
-                  Text("Rp 10.000.000")
-                ],
-              ),
-
-              const CommonSeparator(
-                color: Colors.grey,
-              ),
-
-              const Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Image.asset(
-                  //   IconValues.checkMarkButton,
-                  //   height: 15,
-                  //   width: 15,
-                  // ),
-                  Icon(
-                    Icons.check_circle,
-                    size: 18,
-                  ),
-                  SizedBox(width: 8.0),
-                  Expanded(
-                    child: Text(
-                        "Paid"
-                    ),
-                  ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 60.000.000")
+                  Text("10 Hr 45 Min")
                 ],
               ),
               const SizedBox(height: 8.0),
               const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   IconValues.crossMark,
-                  //   height: 15,
-                  //   width: 15,
-                  // ),
                   Icon(
-                    Icons.check_circle_outline,
+                    Icons.calendar_month,
                     size: 18,
                   ),
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
-                        "Unpaid"
+                        "Total Days"
                     ),
                   ),
                   SizedBox(width: 8.0),
-                  Text("Rp 150.000.000")
+                  Text("2 Days")
                 ],
               ),
 
@@ -154,20 +117,38 @@ class _VendorSummaryState extends State<VendorSummary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.area_chart,
+                    Icons.alarm_on,
                     size: 18,
                   ),
                   SizedBox(width: 8.0),
-
                   Expanded(
                     child: Text(
-                        "All Vendor"
+                        "Start At"
                     ),
                   ),
                   SizedBox(width: 8.0),
-                  Text("Rp 210.000.000")
+                  Text("24 Sep 10:30")
                 ],
               ),
+              const SizedBox(height: 8.0),
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.alarm_off,
+                    size: 18,
+                  ),
+                  SizedBox(width: 8.0),
+                  Expanded(
+                    child: Text(
+                        "End At"
+                    ),
+                  ),
+                  SizedBox(width: 8.0),
+                  Text("25 Sep 13:00")
+                ],
+              ),
+
             ],
           ),
         ),

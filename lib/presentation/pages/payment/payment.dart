@@ -15,7 +15,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Payment Detail"),
+        title: const Text("Payments"),
         backgroundColor: Theme.of(context).colorScheme.surface,
         surfaceTintColor: Colors.transparent,
         centerTitle: true,

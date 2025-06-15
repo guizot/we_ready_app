@@ -8,7 +8,7 @@ class ThemeService extends ChangeNotifier {
   final SharedPreferenceDataSource sharedPreferenceDataSource;
   ThemeService({required this.sharedPreferenceDataSource}) {
     _themeMode = ThemeServiceValues.system;
-    _colorSeed = ThemeServiceValues.colorPink;
+    _colorSeed = ThemeServiceValues.colorBlue;
     getPreferences();
   }
 

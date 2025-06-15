@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/pages/invitation/invitation.dart';
+import '../../core/constant/routes_values.dart';
 import '../vendor/vendor.dart';
 import '../rundown/rundown.dart';
-import '../setting/setting.dart';
+import '../setting/summary.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,6 +23,26 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Theme.of(context).colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           centerTitle: true,
+          actions: currentPageIndex != 0 ? [
+            Container(
+              margin: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                icon: const Icon(Icons.add_circle_outline_sharp),
+                tooltip: 'Add',
+                onPressed: () {
+                  if(currentPageIndex == 1) {
+                    Navigator.pushNamed(context, RoutesValues.vendorAdd);
+                  }
+                  else if(currentPageIndex == 2) {
+                    Navigator.pushNamed(context, RoutesValues.invitationAdd);
+                  }
+                  else if(currentPageIndex == 3) {
+                    Navigator.pushNamed(context, RoutesValues.rundownAdd);
+                  }
+                },
+              ),
+            )
+          ] : null,
         ),
         bottomNavigationBar: Stack(
           children: [
@@ -73,7 +94,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: <Widget>[
-          const SettingWrapperProvider(),
+          const SummaryWrapperProvider(),
           const VendorPage(),
           const InvitationPage(),
           const RundownPage(),

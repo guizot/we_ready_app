@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/pages/home/ceremony_add.dart';
+import 'package:we_ready_app/presentation/pages/ceremony/ceremony_add.dart';
 import 'package:we_ready_app/presentation/pages/invitation/invitation_add.dart';
 import 'package:we_ready_app/presentation/pages/payment/payment.dart';
 import 'package:we_ready_app/presentation/pages/payment/payment_add.dart';
