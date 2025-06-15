@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/routes_values.dart';
-import '../../core/widget/add_item.dart';
 import '../../core/widget/common_separator.dart';
 import '../../core/widget/dashed_container.dart';
 

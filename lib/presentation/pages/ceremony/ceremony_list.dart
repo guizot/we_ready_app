@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/widget/add_item.dart';
 import 'package:we_ready_app/presentation/pages/ceremony/ceremony_item.dart';
-import '../../core/constant/routes_values.dart';
-import '../../core/handler/dialog_handler.dart';
 
 class CeremonyList extends StatelessWidget {
   const CeremonyList({super.key, required this.onAdd, required this.onEdit });

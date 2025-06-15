@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/icon_values.dart';
-import '../../core/constant/routes_values.dart';
-import '../../core/widget/header_item.dart';
 import 'vendor_item.dart';
-import 'vendor_summary.dart';
 
 class VendorPage extends StatefulWidget {
   const VendorPage({super.key});
