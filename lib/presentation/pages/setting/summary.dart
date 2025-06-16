@@ -5,7 +5,7 @@ import '../../../injector.dart';
 import '../../core/constant/theme_service_values.dart';
 import '../../core/service/theme_service.dart';
 import '../../core/widget/common_item.dart';
-import '../ceremony/ceremony_switch.dart';
+import '../event/event_switch.dart';
 import '../invitation/invitation_summary.dart';
 import '../rundown/rundown_summary.dart';
 import '../vendor/vendor_summary.dart';
@@ -44,8 +44,8 @@ class _SummaryPageState extends State<SummaryPage> {
               //     Navigator.pushNamed(context, RoutesValues.vendorAdd);
               //   },
               // ),
-              const CeremonySwitch(
-                  ceremonyName: "Acara Pernikahan"
+              const EventSwitch(
+                  eventName: "Acara Pernikahan"
               ),
               const VendorSummary(
                   name: "Vendor Summary"

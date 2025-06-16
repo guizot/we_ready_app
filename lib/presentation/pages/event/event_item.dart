@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class CeremonyItem extends StatefulWidget {
-  const CeremonyItem({super.key, required this.name, required this.isSelected, required this.onEdit });
+class EventItem extends StatefulWidget {
+  const EventItem({super.key, required this.name, required this.isSelected, required this.onEdit });
   final String name;
   final bool isSelected;
   final Function(String) onEdit;
 
   @override
-  State<CeremonyItem> createState() => _CeremonyItemState();
+  State<EventItem> createState() => _EventItemState();
 }
 
-class _CeremonyItemState extends State<CeremonyItem> {
+class _EventItemState extends State<EventItem> {
 
   @override
   Widget build(BuildContext context) {

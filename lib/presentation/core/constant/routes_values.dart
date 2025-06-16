@@ -7,6 +7,6 @@ class RoutesValues {
   static const String invitationAdd = '/invitation-add';
   static const String rundownAdd = '/rundown-add';
   static const String paymentAdd = '/payment-add';
-  static const String ceremonyAdd = '/ceremony-add';
+  static const String eventAdd = '/event-add';
 
 }

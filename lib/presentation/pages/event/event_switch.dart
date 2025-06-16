@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import '../../core/constant/routes_values.dart';
 import '../../core/handler/dialog_handler.dart';
-import 'ceremony_list.dart';
+import 'event_list.dart';
 
-class CeremonySwitch extends StatefulWidget {
-  const CeremonySwitch({super.key, required this.ceremonyName });
-  final String ceremonyName;
+class EventSwitch extends StatefulWidget {
+  const EventSwitch({super.key, required this.eventName });
+  final String eventName;
 
   @override
-  State<CeremonySwitch> createState() => _CeremonySwitchState();
+  State<EventSwitch> createState() => _EventSwitchState();
 }
 
-class _CeremonySwitchState extends State<CeremonySwitch> {
+class _EventSwitchState extends State<EventSwitch> {
 
-  void ceremonyList(BuildContext context) {
+  void eventList(BuildContext context) {
     DialogHandler.showBottomSheet(
         context: context,
         child: Container(
           padding: const EdgeInsets.all(16.0),
           child: SizedBox(
               width: double.infinity,
-              child: CeremonyList(
-                onAdd: () => ceremonyAdd(context),
-                onEdit: (String id) => ceremonyEdit(context, id)
+              child: EventList(
+                onAdd: () => eventAdd(context),
+                onEdit: (String id) => eventEdit(context, id)
               )
           ),
         )
     );
   }
 
-  void ceremonyAdd(BuildContext context) {
-    Navigator.popAndPushNamed(context, RoutesValues.ceremonyAdd);
+  void eventAdd(BuildContext context) {
+    Navigator.popAndPushNamed(context, RoutesValues.eventAdd);
   }
 
-  void ceremonyEdit(BuildContext context, String id) {
-    Navigator.popAndPushNamed(context, RoutesValues.ceremonyAdd, arguments: id);
+  void eventEdit(BuildContext context, String id) {
+    Navigator.popAndPushNamed(context, RoutesValues.eventAdd, arguments: id);
   }
 
   @override
@@ -42,7 +42,7 @@ class _CeremonySwitchState extends State<CeremonySwitch> {
     return Column(
       children: [
         GestureDetector(
-          onTap: () => ceremonyList(context),
+          onTap: () => eventList(context),
           child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -67,7 +67,7 @@ class _CeremonySwitchState extends State<CeremonySwitch> {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: Text(
-                      widget.ceremonyName,
+                      widget.eventName,
                       style: const TextStyle(
                           fontWeight: FontWeight.w600
                       ),

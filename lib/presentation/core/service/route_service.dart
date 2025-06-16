@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/pages/ceremony/ceremony_add.dart';
+import 'package:we_ready_app/presentation/pages/event/event_add.dart';
 import 'package:we_ready_app/presentation/pages/invitation/invitation_add.dart';
 import 'package:we_ready_app/presentation/pages/payment/payment.dart';
 import 'package:we_ready_app/presentation/pages/payment/payment_add.dart';
@@ -28,9 +28,9 @@ class RouteService {
       case RoutesValues.paymentAdd:
         var id = settings.arguments as String?;
         return MaterialPageRoute(builder: (_) => PaymentAdd(id: id));
-      case RoutesValues.ceremonyAdd:
+      case RoutesValues.eventAdd:
         var id = settings.arguments as String?;
-        return MaterialPageRoute(builder: (_) => CeremonyAdd(id: id));
+        return MaterialPageRoute(builder: (_) => EventAdd(id: id));
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

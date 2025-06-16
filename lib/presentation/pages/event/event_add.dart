@@ -1,23 +1,26 @@
+import 'package:flutter/material.dart';
+import '../../core/widget/text_field_item.dart';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-
-import '../../core/widget/text_field_item.dart';
-
-class PaymentAdd extends StatefulWidget {
-  const PaymentAdd({super.key, this.id});
+class EventAdd extends StatefulWidget {
+  const EventAdd({super.key, this.id});
   final String? id;
   @override
-  State<PaymentAdd> createState() => _PaymentAddState();
+  State<EventAdd> createState() => _EventAddState();
 }
 
-class _PaymentAddState extends State<PaymentAdd> {
+class _EventAddState extends State<EventAdd> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("${widget.id == null ? "Add" : "Edit"} Payment"),
+          title: Text("${widget.id == null ? "Add" : "Edit"} Event"),
           backgroundColor: Theme.of(context).colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           centerTitle: true,
@@ -39,13 +42,14 @@ class _PaymentAddState extends State<PaymentAdd> {
           padding: const EdgeInsets.all(16.0),
           children: const [
             TextFieldItem(
-                title: "Name"
+              title: "Title"
             ),
             TextFieldItem(
-              title: "Amount",
+              title: "Budget"
             ),
             TextFieldItem(
-                title: "Date Time"
+              title: "Description",
+              isMultiline: true,
             ),
           ],
         )

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/widget/add_item.dart';
-import 'package:we_ready_app/presentation/pages/ceremony/ceremony_item.dart';
 
-class CeremonyList extends StatelessWidget {
-  const CeremonyList({super.key, required this.onAdd, required this.onEdit });
+import 'event_item.dart';
+
+class EventList extends StatelessWidget {
+  const EventList({super.key, required this.onAdd, required this.onEdit });
   final Function onAdd;
   final Function(String) onEdit;
 
@@ -20,23 +21,23 @@ class CeremonyList extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 24.0),
-        CeremonyItem(
+        EventItem(
             name: "Acara Pernikahan",
             isSelected: true,
             onEdit: onEdit
         ),
-        CeremonyItem(
+        EventItem(
             name: "Sangjitan",
             isSelected: false,
             onEdit: onEdit
         ),
-        CeremonyItem(
+        EventItem(
             name: "After Party",
             isSelected: false,
             onEdit: onEdit
         ),
         AddItem(
-            name: "Add Ceremony +",
+            name: "Add Event +",
             onAdd: onAdd
         ),
       ],
