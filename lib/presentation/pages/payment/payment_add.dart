@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../core/constant/form_type.dart';
 import '../../core/widget/text_field_item.dart';
 
 class PaymentAdd extends StatefulWidget {
@@ -25,30 +26,48 @@ class _PaymentAddState extends State<PaymentAdd> {
             Container(
               margin: const EdgeInsets.only(right: 8.0),
               child: IconButton(
-                icon: Transform.rotate(
-                  angle: 45 * pi / 180,
-                  child: const Icon(Icons.add_circle_outline_sharp),
-                ),
+                icon: const Icon(Icons.delete_forever_rounded),
                 tooltip: 'Delete',
                 onPressed: () { },
               ),
             )
           ],
         ),
-        body: ListView(
-          padding: const EdgeInsets.all(16.0),
-          children: const [
-            TextFieldItem(
-                title: "Name"
+        body: Column(
+          children: [
+            Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.all(16.0),
+                  children: const [
+                    TextFieldItem(
+                        title: "Name"
+                    ),
+                    TextFieldItem(
+                      title: "Amount",
+                      inputType: TextInputType.number,
+                      preText: "Rp",
+                    ),
+                    TextFieldItem(
+                      title: "Date Time",
+                      formType: FormType.date,
+                    ),
+                  ],
+                )
             ),
-            TextFieldItem(
-              title: "Amount",
-            ),
-            TextFieldItem(
-                title: "Date Time"
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () {},
+                style: FilledButton.styleFrom(
+                  backgroundColor: Theme.of(context).iconTheme.color,
+                  padding: const EdgeInsets.all(16.0),
+                ),
+                child: Text(widget.id == null ? "Submit" : "Save"),
+              ),
             ),
           ],
-        )
+        ),
     );
   }
 

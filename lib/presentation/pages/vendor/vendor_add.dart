@@ -26,30 +26,47 @@ class _VendorAddState extends State<VendorAdd> {
             Container(
               margin: const EdgeInsets.only(right: 8.0),
               child: IconButton(
-                icon: Transform.rotate(
-                  angle: 45 * pi / 180,
-                  child: const Icon(Icons.add_circle_outline_sharp),
-                ),
+                icon: const Icon(Icons.delete_forever_rounded),
                 tooltip: 'Delete',
                 onPressed: () { },
               ),
             )
           ],
         ),
-        body: ListView(
-          padding: const EdgeInsets.all(16.0),
-          children: const [
-            TextFieldItem(
-                title: "Name"
+        body: Column(
+          children: [
+            Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.all(16.0),
+                  children: const [
+                    TextFieldItem(
+                        title: "Name"
+                    ),
+                    TextFieldItem(
+                        title: "Category"
+                    ),
+                    TextFieldItem(
+                      title: "Budget",
+                      inputType: TextInputType.number,
+                      preText: "Rp"
+                    ),
+                  ],
+                )
             ),
-            TextFieldItem(
-                title: "Category"
-            ),
-            TextFieldItem(
-                title: "Budget"
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () {},
+                style: FilledButton.styleFrom(
+                  backgroundColor: Theme.of(context).iconTheme.color,
+                  padding: const EdgeInsets.all(16.0),
+                ),
+                child: Text(widget.id == null ? "Submit" : "Save"),
+              ),
             ),
           ],
-        )
+        ),
     );
   }
 
