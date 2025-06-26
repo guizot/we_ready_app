@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-
 import '../../core/constant/form_type.dart';
 import '../../core/widget/text_field_item.dart';
 

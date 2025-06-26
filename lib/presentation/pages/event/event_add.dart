@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../core/widget/text_field_item.dart';
-import 'dart:math';
 
 class EventAdd extends StatefulWidget {
   const EventAdd({super.key, this.id});
