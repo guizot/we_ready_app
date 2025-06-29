@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../core/widget/common_separator.dart';
 
 class InvitationSummary extends StatefulWidget {
-  const InvitationSummary({super.key, required this.name });
-  final String name;
+  const InvitationSummary({super.key, this.summary});
+  final Map<String, dynamic>? summary;
 
   @override
   State<InvitationSummary> createState() => _InvitationSummaryState();
@@ -13,7 +13,7 @@ class _InvitationSummaryState extends State<InvitationSummary> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return widget.summary != null ? Column(
       children: [
         Container(
           width: double.infinity,
@@ -26,7 +26,7 @@ class _InvitationSummaryState extends State<InvitationSummary> {
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
           child: Column(
             children: [
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -34,20 +34,20 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                   //   height: 18,
                   //   width: 18,
                   // ),
-                  const Icon(
+                  Icon(
                     Icons.groups_rounded,
                     size: 18,
                   ),
-                  const SizedBox(width: 8.0),
+                  SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
-                      widget.name,
-                      style: const TextStyle(
+                      "Invitation Summary",
+                      style: TextStyle(
                         fontWeight: FontWeight.w600
                       ),
                     )
                   ),
-                  const SizedBox(width: 8.0),
+                  SizedBox(width: 8.0),
                 ],
               ),
 
@@ -55,7 +55,7 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                 color: Colors.grey,
               ),
 
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -63,22 +63,22 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.mail,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Invitation"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("150 Mails")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['mails'])
                 ],
               ),
               const SizedBox(height: 8.0),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -86,18 +86,18 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.people_alt_rounded,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                       "Total"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("300 Peoples")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['peoples'])
                 ],
               ),
 
@@ -105,7 +105,7 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                 color: Colors.grey,
               ),
 
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -113,22 +113,22 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.contact_page,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Confirmed"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("25")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['confirmed'])
                 ],
               ),
               const SizedBox(height: 8.0),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -136,18 +136,18 @@ class _InvitationSummaryState extends State<InvitationSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.contact_page_outlined,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Unconfirmed"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("125")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['unconfirmed'])
                 ],
               ),
             ],
@@ -157,7 +157,7 @@ class _InvitationSummaryState extends State<InvitationSummary> {
           height: 16.0,
         )
       ],
-    );
+    ) : Container();
   }
 
 }

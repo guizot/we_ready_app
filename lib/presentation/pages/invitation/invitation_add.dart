@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/core/constant/form_type.dart';
+
+import '../../core/constant/form_type.dart';
+import '../../core/handler/dialog_handler.dart';
+import '../../core/widget/LoadingState.dart';
 import '../../core/widget/text_field_item.dart';
 
 class InvitationAdd extends StatefulWidget {
@@ -10,6 +13,72 @@ class InvitationAdd extends StatefulWidget {
 }
 
 class _InvitationAddState extends State<InvitationAdd> {
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController packageController = TextEditingController();
+  TextEditingController confirmController = TextEditingController();
+  bool isLoading = true;
+
+  Map<String, String> populateForm() {
+    return {
+      'name': nameController.text,
+      'category': categoryController.text,
+      'package': packageController.text,
+      'confirm': confirmController.text,
+    };
+  }
+
+  Map<String, String> getForm() {
+    return {
+      'name': 'Tom Cruise',
+      'category': 'Friends',
+      'package': '150',
+      'confirm': 'true',
+    };
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.id != null) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        final data = getForm();
+        setState(() {
+          nameController.text = data['name'] ?? '';
+          categoryController.text = data['category'] ?? '';
+          packageController.text = data['package'] ?? '';
+          confirmController.text = data['confirm'] ?? '';
+          isLoading = false;
+        });
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void onSubmit() {
+    final formData = populateForm();
+    if (formData['name']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Name cannot be empty");
+      return;
+    }
+    if (formData['category']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Category cannot be empty");
+      return;
+    }
+    if (formData['package']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Package cannot be empty");
+      return;
+    }
+    if (formData['confirm']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Confirmation cannot be empty");
+      return;
+    }
+    DialogHandler.showSnackBar(context: context, message: "Form submitted: $formData");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +99,30 @@ class _InvitationAddState extends State<InvitationAdd> {
             )
           ],
         ),
-        body: Column(
+        body: isLoading ? const LoadingState() : Column(
           children: [
             Expanded(
                 child: ListView(
                   padding: const EdgeInsets.all(16.0),
-                  children: const [
+                  children: [
                     TextFieldItem(
-                        title: "Name"
+                      title: "Name",
+                      controller: nameController,
                     ),
                     TextFieldItem(
-                        title: "Category"
+                      title: "Category",
+                      controller: categoryController,
                     ),
                     TextFieldItem(
-                        title: "Package"
+                      title: "Package",
+                      inputType: TextInputType.number,
+                      preText: "Pax",
+                      controller: packageController,
                     ),
                     TextFieldItem(
-                        title: "Confirmation",
-                        formType: FormType.switcher,
-                        fieldValue: true,
+                      title: "Confirmation",
+                      formType: FormType.switcher,
+                      controller: confirmController,
                     ),
                   ],
                 )
@@ -57,7 +131,7 @@ class _InvitationAddState extends State<InvitationAdd> {
               padding: const EdgeInsets.all(16.0),
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: onSubmit,
                 style: FilledButton.styleFrom(
                   backgroundColor: Theme.of(context).iconTheme.color,
                   padding: const EdgeInsets.all(16.0),

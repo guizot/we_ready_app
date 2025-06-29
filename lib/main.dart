@@ -4,12 +4,16 @@ import 'package:we_ready_app/presentation/core/constant/theme_service_values.dar
 import 'package:we_ready_app/presentation/core/service/route_service.dart';
 import 'package:we_ready_app/presentation/core/service/theme_service.dart';
 import 'package:we_ready_app/injector.dart' as di;
+import 'data/datasource/local/hive_data_source.dart';
 import 'injector.dart';
 
 void main() async {
 
   /// ENSURE INITIALIZED
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// INIT HIVE LOCAL DATABASE
+  await HiveDataSource.init();
 
   /// INIT DEPENDENCY INJECTION
   await di.init();

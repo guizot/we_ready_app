@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/pages/invitation/invitation.dart';
-import '../../core/constant/routes_values.dart';
-import '../vendor/vendor.dart';
-import '../rundown/rundown.dart';
-import '../setting/summary.dart';
+import '../core/constant/routes_values.dart';
+import 'vendor/vendor.dart';
+import 'rundown/rundown.dart';
+import 'event/event.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,8 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<EventPageState> eventPageKey = GlobalKey<EventPageState>();
+
   int currentPageIndex = 0;
-  String titlePage = "Summary";
+  String titlePage = "Event";
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,11 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.add_circle_outline_sharp),
                 tooltip: 'Add',
                 onPressed: () {
+                  // if(currentPageIndex == 0) {
+                  //   Navigator.pushNamed(context, RoutesValues.eventAdd).then((_) {
+                  //     eventPageKey.currentState?.onSelectedEventChanged();
+                  //   });
+                  // }
                   if(currentPageIndex == 1) {
                     Navigator.pushNamed(context, RoutesValues.vendorAdd);
                   }
@@ -53,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   currentPageIndex = index;
                   if(index == 0) {
-                    titlePage = "Summary";
+                    titlePage = "Event";
                   }
                   else if(index == 1) {
                     titlePage = "Vendor";
@@ -72,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                 NavigationDestination(
                   selectedIcon: Icon(Icons.all_inclusive),
                   icon: Icon(Icons.all_inclusive),
-                  label: 'Summary',
+                  label: 'Event',
                 ),
                 NavigationDestination(
                   selectedIcon: Icon(Icons.home),
@@ -93,12 +100,15 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        body: <Widget>[
-          const SummaryWrapperProvider(),
-          const VendorPage(),
-          const InvitationPage(),
-          const RundownPage(),
-        ][currentPageIndex],
+        body: Builder(
+          builder: (_) {
+            if (currentPageIndex == 0) return EventPageProvider(pageKey: eventPageKey);
+            if (currentPageIndex == 1) return const VendorPage();
+            if (currentPageIndex == 2) return const InvitationPage();
+            if (currentPageIndex == 3) return const RundownPage();
+            return const SizedBox.shrink();
+          },
+        ),
     );
   }
 

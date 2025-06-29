@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/handler/dialog_handler.dart';
+import '../../core/widget/LoadingState.dart';
 import '../../core/widget/text_field_item.dart';
 
 class VendorAdd extends StatefulWidget {
@@ -10,6 +12,64 @@ class VendorAdd extends StatefulWidget {
 }
 
 class _VendorAddState extends State<VendorAdd> {
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController budgetController = TextEditingController();
+  bool isLoading = true;
+
+  Map<String, String> populateForm() {
+    return {
+      'name': nameController.text,
+      'category': categoryController.text,
+      'budget': budgetController.text,
+    };
+  }
+
+  Map<String, String> getForm() {
+    return {
+      'name': 'name vendor 1',
+      'category': 'Gaun Baju',
+      'budget': '2500000',
+    };
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.id != null) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        final data = getForm();
+        setState(() {
+          nameController.text = data['name'] ?? '';
+          categoryController.text = data['category'] ?? '';
+          budgetController.text = data['budget'] ?? '';
+          isLoading = false;
+        });
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void onSubmit() {
+    final formData = populateForm();
+    if (formData['name']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Name cannot be empty");
+      return;
+    }
+    if (formData['category']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Category cannot be empty");
+      return;
+    }
+    if (formData['budget']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Budget cannot be empty");
+      return;
+    }
+    DialogHandler.showSnackBar(context: context, message: "Form submitted: $formData");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,22 +90,25 @@ class _VendorAddState extends State<VendorAdd> {
             )
           ],
         ),
-        body: Column(
+        body: isLoading ? const LoadingState() : Column(
           children: [
             Expanded(
                 child: ListView(
                   padding: const EdgeInsets.all(16.0),
-                  children: const [
+                  children: [
                     TextFieldItem(
-                        title: "Name"
+                      title: "Name",
+                      controller: nameController,
                     ),
                     TextFieldItem(
-                        title: "Category"
+                      title: "Category",
+                      controller: categoryController,
                     ),
                     TextFieldItem(
                       title: "Budget",
                       inputType: TextInputType.number,
-                      preText: "Rp"
+                      preText: "Rp",
+                      controller: budgetController,
                     ),
                   ],
                 )
@@ -54,7 +117,7 @@ class _VendorAddState extends State<VendorAdd> {
               padding: const EdgeInsets.all(16.0),
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: onSubmit,
                 style: FilledButton.styleFrom(
                   backgroundColor: Theme.of(context).iconTheme.color,
                   padding: const EdgeInsets.all(16.0),

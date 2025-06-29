@@ -1,5 +1,5 @@
 enum FormType {
   text,
+  switcher,
   date,
-  switcher
 }

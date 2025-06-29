@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/constant/form_type.dart';
+import '../../core/handler/dialog_handler.dart';
+import '../../core/widget/LoadingState.dart';
 import '../../core/widget/text_field_item.dart';
 
 class PaymentAdd extends StatefulWidget {
@@ -10,6 +12,64 @@ class PaymentAdd extends StatefulWidget {
 }
 
 class _PaymentAddState extends State<PaymentAdd> {
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  bool isLoading = true;
+
+  Map<String, String> populateForm() {
+    return {
+      'name': nameController.text,
+      'amount': amountController.text,
+      'date': dateController.text,
+    };
+  }
+
+  Map<String, String> getForm() {
+    return {
+      'name': 'title 1',
+      'amount': 'desc 1 \nenter is here',
+      'date': '27 Jun 2025 - 13:45',
+    };
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.id != null) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        final data = getForm();
+        setState(() {
+          nameController.text = data['name'] ?? '';
+          amountController.text = data['amount'] ?? '';
+          dateController.text = data['date'] ?? '';
+          isLoading = false;
+        });
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void onSubmit() {
+    final formData = populateForm();
+    if (formData['name']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Name cannot be empty");
+      return;
+    }
+    if (formData['amount']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Amount cannot be empty");
+      return;
+    }
+    if (formData['date']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Date Time cannot be empty");
+      return;
+    }
+    DialogHandler.showSnackBar(context: context, message: "Form submitted: $formData");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +90,26 @@ class _PaymentAddState extends State<PaymentAdd> {
             )
           ],
         ),
-        body: Column(
+        body: isLoading ? const LoadingState() : Column(
           children: [
             Expanded(
                 child: ListView(
                   padding: const EdgeInsets.all(16.0),
-                  children: const [
+                  children: [
                     TextFieldItem(
-                        title: "Name"
+                        title: "Name",
+                      controller: nameController,
                     ),
                     TextFieldItem(
                       title: "Amount",
                       inputType: TextInputType.number,
                       preText: "Rp",
+                      controller: amountController,
                     ),
                     TextFieldItem(
                       title: "Date Time",
                       formType: FormType.date,
+                      controller: dateController,
                     ),
                   ],
                 )
@@ -55,7 +118,7 @@ class _PaymentAddState extends State<PaymentAdd> {
               padding: const EdgeInsets.all(16.0),
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: onSubmit,
                 style: FilledButton.styleFrom(
                   backgroundColor: Theme.of(context).iconTheme.color,
                   padding: const EdgeInsets.all(16.0),

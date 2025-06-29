@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/widget/common_separator.dart';
+import '../event/cubit/event_cubit.dart';
 
 class VendorSummary extends StatefulWidget {
-  const VendorSummary({super.key, required this.name });
-  final String name;
+  const VendorSummary({super.key, this.summary});
+  final Map<String, dynamic>? summary;
 
   @override
   State<VendorSummary> createState() => _VendorSummaryState();
@@ -13,7 +15,7 @@ class _VendorSummaryState extends State<VendorSummary> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return widget.summary != null ? Column(
       children: [
         Container(
           width: double.infinity,
@@ -26,23 +28,23 @@ class _VendorSummaryState extends State<VendorSummary> {
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
           child: Column(
             children: [
-              Row(
+              const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.home,
                     size: 18,
                   ),
-                  const SizedBox(width: 8.0),
+                  SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
-                      widget.name,
-                      style: const TextStyle(
+                      "Vendor Summary",
+                      style: TextStyle(
                           fontWeight: FontWeight.w600
                       ),
                     )
                   ),
-                  const SizedBox(width: 8.0),
+                  SizedBox(width: 8.0),
                 ],
               ),
 
@@ -50,7 +52,7 @@ class _VendorSummaryState extends State<VendorSummary> {
                 color: Colors.grey,
               ),
 
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -58,22 +60,22 @@ class _VendorSummaryState extends State<VendorSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.paid,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Budget"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 200.000.000")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['budget'])
                 ],
               ),
               const SizedBox(height: 8.0),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -81,18 +83,18 @@ class _VendorSummaryState extends State<VendorSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.paid_outlined,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                       "Over Budget"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 10.000.000")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['overBudget'])
                 ],
               ),
 
@@ -100,7 +102,7 @@ class _VendorSummaryState extends State<VendorSummary> {
                 color: Colors.grey,
               ),
 
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -108,22 +110,22 @@ class _VendorSummaryState extends State<VendorSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.check_circle,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Paid"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 60.000.000")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['paid'])
                 ],
               ),
               const SizedBox(height: 8.0),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -131,18 +133,18 @@ class _VendorSummaryState extends State<VendorSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.check_circle_outline,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Unpaid"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 150.000.000")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['unpaid'])
                 ],
               ),
 
@@ -150,22 +152,22 @@ class _VendorSummaryState extends State<VendorSummary> {
                 color: Colors.grey,
               ),
 
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.area_chart,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
 
-                  Expanded(
+                  const Expanded(
                     child: Text(
                         "All Vendor"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 210.000.000")
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['total'])
                 ],
               ),
             ],
@@ -175,7 +177,7 @@ class _VendorSummaryState extends State<VendorSummary> {
           height: 16.0,
         )
       ],
-    );
+    ) : Container();
   }
 
 }

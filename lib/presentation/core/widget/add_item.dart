@@ -25,7 +25,7 @@ class _AddItemState extends State<AddItem> {
             borderRadius: 20.0,
             child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                padding: const EdgeInsets.symmetric(vertical: 22.0, horizontal: 24.0),
                 child: Center(
                     child: Text(
                       widget.name,

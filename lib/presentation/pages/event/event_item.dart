@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:we_ready_app/data/models/local/event_model.dart';
 
 class EventItem extends StatefulWidget {
-  const EventItem({super.key, required this.name, required this.isSelected, required this.onEdit });
-  final String name;
+  const EventItem({super.key, required this.event, required this.isSelected, required this.onEdit, required this.onSelect });
+  final Event event;
   final bool isSelected;
   final Function(String) onEdit;
+  final Function(Event) onSelect;
 
   @override
   State<EventItem> createState() => _EventItemState();
@@ -32,7 +34,7 @@ class _EventItemState extends State<EventItem> {
                 children: [
                   Expanded(
                     child: Text(
-                      widget.name,
+                      widget.event.title,
                       style: const TextStyle(
                           fontWeight: FontWeight.w600
                       ),
@@ -42,7 +44,7 @@ class _EventItemState extends State<EventItem> {
                   const SizedBox(width: 8.0),
                   GestureDetector(
                     onTap: () {
-                      widget.onEdit(widget.name);
+                      widget.onEdit(widget.event.id);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -61,27 +63,32 @@ class _EventItemState extends State<EventItem> {
                     )
                   ),
                   const SizedBox(width: 12.0),
-                  widget.isSelected ? Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                        shape: BoxShape.circle
-                    ),
-                    padding: const EdgeInsets.all(4.0),
-                    child: const Icon(
-                      Icons.check,
-                      size: 18,
-                    ),
-                  ) : Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceDim,
-                        shape: BoxShape.circle
-                    ),
-                    padding: const EdgeInsets.all(4.0),
-                    child: const Icon(
-                      Icons.check,
-                      size: 18,
-                      color: Colors.transparent,
-                    ),
+                  GestureDetector(
+                    onTap: () {
+                      widget.onSelect(widget.event);
+                    },
+                    child: widget.isSelected ? Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          shape: BoxShape.circle
+                      ),
+                      padding: const EdgeInsets.all(4.0),
+                      child: const Icon(
+                        Icons.check,
+                        size: 18,
+                      ),
+                    ) : Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surfaceDim,
+                          shape: BoxShape.circle
+                      ),
+                      padding: const EdgeInsets.all(4.0),
+                      child: const Icon(
+                        Icons.check,
+                        size: 18,
+                        color: Colors.transparent,
+                      ),
+                    )
                   )
                 ],
               ),

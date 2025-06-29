@@ -5,31 +5,60 @@ import '../../../injector.dart';
 import '../../core/constant/theme_service_values.dart';
 import '../../core/service/theme_service.dart';
 import '../../core/widget/common_item.dart';
-import '../event/event_switch.dart';
+import 'cubit/event_cubit.dart';
+import 'event_switch.dart';
 import '../invitation/invitation_summary.dart';
 import '../rundown/rundown_summary.dart';
 import '../vendor/vendor_summary.dart';
-import 'cubit/summary_cubit.dart';
 
-class SummaryWrapperProvider extends StatelessWidget {
-  const SummaryWrapperProvider({super.key});
+class EventPageProvider extends StatelessWidget {
+  const EventPageProvider({super.key, this.pageKey});
+  final Key? pageKey;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<SummaryCubit>(),
-      child: const SummaryPage(),
+      create: (_) => sl<EventCubit>(),
+      child: EventPage(key: pageKey),
     );
   }
 }
 
-class SummaryPage extends StatefulWidget {
-  const SummaryPage({super.key});
+class EventPage extends StatefulWidget {
+  const EventPage({super.key});
+
   @override
-  State<SummaryPage> createState() => _SummaryPageState();
+  State<EventPage> createState() => EventPageState();
 }
 
-class _SummaryPageState extends State<SummaryPage> {
+class EventPageState extends State<EventPage> {
+
+  Map<String, dynamic>? summaryVendor;
+  Map<String, dynamic>? summaryInvitation;
+  Map<String, dynamic>? summaryRundown;
+
+  @override
+  void initState() {
+    super.initState();
+    getSummary();
+  }
+
+  void getSummary() {
+    setState(() {
+      summaryVendor = context.read<EventCubit>().getSummaryVendor();
+      summaryInvitation = context.read<EventCubit>().getSummaryInvitation();
+      summaryRundown = context.read<EventCubit>().getSummaryRundown();
+    });
+    debugPrint("summaryVendor: $summaryVendor");
+    debugPrint("summaryInvitation: $summaryInvitation");
+    debugPrint("summaryRundown: $summaryRundown");
+  }
+
+  void onSelectedEventChanged() {
+    context.read<EventCubit>().getAllEvent();
+    getSummary();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,24 +67,10 @@ class _SummaryPageState extends State<SummaryPage> {
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              // HeaderItem(
-              //   name: "Jack & Gill",
-              //   onAdd: () {
-              //     Navigator.pushNamed(context, RoutesValues.vendorAdd);
-              //   },
-              // ),
-              const EventSwitch(
-                  eventName: "Acara Pernikahan"
-              ),
-              const VendorSummary(
-                  name: "Vendor Summary"
-              ),
-              const InvitationSummary(
-                  name: "Invitation Summary"
-              ),
-              const RundownSummary(
-                  name: "Rundown Summary"
-              ),
+              EventSwitch(onChanged: onSelectedEventChanged),
+              VendorSummary(summary: summaryVendor),
+              InvitationSummary(summary: summaryInvitation),
+              RundownSummary(summary: summaryRundown),
               CommonItem(
                   title: "Theme Mode",
                   icon: Icons.dark_mode_rounded,

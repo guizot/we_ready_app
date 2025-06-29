@@ -5,7 +5,7 @@ import 'package:we_ready_app/presentation/pages/payment/payment.dart';
 import 'package:we_ready_app/presentation/pages/payment/payment_add.dart';
 import 'package:we_ready_app/presentation/pages/rundown/rundown_add.dart';
 import 'package:we_ready_app/presentation/pages/vendor/vendor_add.dart';
-import '../../pages/home/home.dart';
+import '../../pages/home.dart';
 import '../constant/routes_values.dart';
 
 class RouteService {
@@ -30,7 +30,7 @@ class RouteService {
         return MaterialPageRoute(builder: (_) => PaymentAdd(id: id));
       case RoutesValues.eventAdd:
         var id = settings.arguments as String?;
-        return MaterialPageRoute(builder: (_) => EventAdd(id: id));
+        return MaterialPageRoute(builder: (_) => EventAddProvider(id: id));
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
