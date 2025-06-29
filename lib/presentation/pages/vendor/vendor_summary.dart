@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/widget/common_separator.dart';
-import '../event/cubit/event_cubit.dart';
 
 class VendorSummary extends StatefulWidget {
   const VendorSummary({super.key, this.summary});

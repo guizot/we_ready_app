@@ -4,7 +4,6 @@ import 'package:we_ready_app/data/models/local/event_model.dart';
 import 'package:we_ready_app/presentation/pages/event/cubit/event_cubit.dart';
 import '../../core/constant/routes_values.dart';
 import '../../core/handler/dialog_handler.dart';
-import '../../core/widget/add_item.dart';
 import '../../core/widget/dashed_container.dart';
 import 'cubit/event_state.dart';
 import 'event_list.dart';
