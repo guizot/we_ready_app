@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/widget/common_separator.dart';
 import '../../../data/models/local/invitation_model.dart';
-import '../../core/constant/routes_values.dart';
 
 class InvitationItem extends StatefulWidget {
   const InvitationItem({super.key, required this.item, required this.onTap });

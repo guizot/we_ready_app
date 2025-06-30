@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/local/invitation_model.dart';
 import '../../../injector.dart';
-import '../../core/constant/icon_values.dart';
 import '../../core/constant/routes_values.dart';
 import '../../core/widget/empty_state.dart';
 import '../../core/widget/loading_state.dart';
