@@ -43,7 +43,7 @@ class _InvitationAddState extends State<InvitationAdd> {
     return {
       'name': nameController.text,
       'category': categoryController.text,
-      'package': packageController.text,
+      'package': packageController.text.toIntFromFormatted().toString(),
       'confirm': confirmController.text,
     };
   }

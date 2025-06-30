@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../core/constant/routes_values.dart';
+import 'package:intl/intl.dart';
+import '../../../data/models/local/rundown_model.dart';
 import '../../core/widget/common_separator.dart';
 
 class RundownItem extends StatefulWidget {
-  const RundownItem({super.key, required this.time, required this.timeAmount, required this.icon, required this.title, required this.subtitle });
-  final String time;
-  final String timeAmount;
-  final String icon;
-  final String title;
-  final String subtitle;
+  const RundownItem({super.key, required this.item, required this.onTap });
+  final Rundown item;
+  final Function(String) onTap;
 
   @override
   State<RundownItem> createState() => _RundownItemState();
@@ -18,10 +16,34 @@ class _RundownItemState extends State<RundownItem> {
 
   @override
   Widget build(BuildContext context) {
+
+    DateFormat format = DateFormat('dd MMM yyyy - HH:mm');
+    DateTime startTime = format.parse(widget.item.start);
+    DateTime endTime = format.parse(widget.item.end);
+
+    // Date
+    String dateRange = "";
+    if (startTime.year == endTime.year) {
+      if (startTime.month == endTime.month && startTime.day == endTime.day) {
+        dateRange = DateFormat('dd MMM yyyy').format(startTime);
+      } else {
+        dateRange = "${DateFormat('dd MMM').format(startTime)} - ${DateFormat('dd MMM yyyy').format(endTime)}";
+      }
+    } else {
+      dateRange = "${DateFormat('dd MMM yyyy').format(startTime)} - ${DateFormat('dd MMM yyyy').format(endTime)}";
+    }
+
+    // Time
+    String timeRange = "${DateFormat('HH:mm').format(startTime)} - ${DateFormat('HH:mm').format(endTime)}";
+
+    // Duration
+    Duration duration = endTime.difference(startTime);
+    int hours = duration.inHours;
+    int minutes = duration.inMinutes.remainder(60);
+    String durationText = "($hours Hr $minutes Min)";
+
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, RoutesValues.rundownAdd, arguments: "123");
-      },
+      onTap: () => widget.onTap(widget.item.id),
       child: Column(
         children: [
           Container(
@@ -38,30 +60,17 @@ class _RundownItemState extends State<RundownItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Image.asset(
-                    //   IconValues.hourglassDone,
-                    //   height: 15,
-                    //   width: 15,
-                    // ),
                     const Icon(
-                      Icons.access_time_filled_rounded,
+                      Icons.calendar_month,
                       size: 18,
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
-                      child: Row(
-                        children: [
-                          Text(
-                            widget.time,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          const SizedBox(width: 6.0),
-                          Text(
-                            "(${widget.timeAmount})",
-                          ),
-                        ],
+                      child: Text(
+                        dateRange,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8.0),
@@ -71,48 +80,71 @@ class _RundownItemState extends State<RundownItem> {
                     ),
                   ],
                 ),
-                const CommonSeparator(
-                  color: Colors.grey,
-                ),
-                Column(
+                const SizedBox(height: 8.0),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Image.asset(
-                        //   widget.icon,
-                        //   height: 15,
-                        //   width: 15,
-                        // ),
-                        const Icon(
-                          Icons.arrow_circle_right_outlined,
-                          size: 18,
-                        ),
-                        const SizedBox(width: 8.0),
-                        Expanded(
-                          child: Text(
-                            widget.title,
+                    const Icon(
+                      Icons.access_time_filled_rounded,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Text(
+                            timeRange,
                             style: const TextStyle(
                                 fontWeight: FontWeight.w600
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4.0),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(width: 28.0),
-                        Expanded(
-                          child: Text(
-                            widget.subtitle,
+                          const SizedBox(width: 6.0),
+                          Text(
+                            durationText,
                           ),
-                        ),
-                      ],
-                    )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
+                const CommonSeparator(
+                  color: Colors.grey,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Image.asset(
+                    //   widget.icon,
+                    //   height: 15,
+                    //   width: 15,
+                    // ),
+                    const Icon(
+                      Icons.arrow_circle_right_outlined,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Text(
+                        widget.item.name,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4.0),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(width: 28.0),
+                    Expanded(
+                      child: Text(
+                        widget.item.description,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
