@@ -21,7 +21,7 @@ class RouteService {
         return MaterialPageRoute(builder: (_) => VendorAddProvider(id: id));
       case RoutesValues.invitationAdd:
         var id = settings.arguments as String?;
-        return MaterialPageRoute(builder: (_) => InvitationAdd(id: id));
+        return MaterialPageRoute(builder: (_) => InvitationAddProvider(id: id));
       case RoutesValues.rundownAdd:
         var id = settings.arguments as String?;
         return MaterialPageRoute(builder: (_) => RundownAdd(id: id));

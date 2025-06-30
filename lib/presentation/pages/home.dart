@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<EventPageState> eventPageKey = GlobalKey<EventPageState>();
   final GlobalKey<VendorPageState> vendorPageKey = GlobalKey<VendorPageState>();
+  final GlobalKey<InvitationPageState> invitationPageKey = GlobalKey<InvitationPageState>();
 
   int currentPageIndex = 0;
   String titlePage = "Event";
@@ -44,10 +45,14 @@ class _HomePageState extends State<HomePage> {
                     });
                   }
                   else if(currentPageIndex == 2) {
-                    Navigator.pushNamed(context, RoutesValues.invitationAdd);
+                    Navigator.pushNamed(context, RoutesValues.invitationAdd).then((_) {
+                      invitationPageKey.currentState?.refreshData();
+                    });
                   }
                   else if(currentPageIndex == 3) {
-                    Navigator.pushNamed(context, RoutesValues.rundownAdd);
+                    Navigator.pushNamed(context, RoutesValues.rundownAdd).then((_) {
+                      // rundownPageKey.currentState?.refreshData();
+                    });
                   }
                 },
               ),
@@ -107,7 +112,7 @@ class _HomePageState extends State<HomePage> {
           builder: (_) {
             if (currentPageIndex == 0) return EventPageProvider(pageKey: eventPageKey);
             if (currentPageIndex == 1) return VendorPageProvider(pageKey: vendorPageKey);
-            if (currentPageIndex == 2) return const InvitationPage();
+            if (currentPageIndex == 2) return InvitationPageProvider(pageKey: invitationPageKey);
             if (currentPageIndex == 3) return const RundownPage();
             return const SizedBox.shrink();
           },
