@@ -49,9 +49,6 @@ class EventPageState extends State<EventPage> {
       summaryInvitation = context.read<EventCubit>().getSummaryInvitation();
       summaryRundown = context.read<EventCubit>().getSummaryRundown();
     });
-    debugPrint("summaryVendor: $summaryVendor");
-    debugPrint("summaryInvitation: $summaryInvitation");
-    debugPrint("summaryRundown: $summaryRundown");
   }
 
   void onSelectedEventChanged() {

@@ -3,6 +3,7 @@ import 'package:we_ready_app/data/repositories/hive_repo_impl.dart';
 import 'package:we_ready_app/domain/repositories/hive_repo.dart';
 import 'package:we_ready_app/presentation/core/service/theme_service.dart';
 import 'package:we_ready_app/presentation/pages/event/cubit/event_cubit.dart';
+import 'package:we_ready_app/presentation/pages/vendor/cubit/vendor_cubit.dart';
 import 'data/datasource/local/hive_data_source.dart';
 import 'data/datasource/shared/shared_preferences_data_source.dart';
 import 'domain/usecases/event_usecases.dart';
@@ -26,6 +27,11 @@ Future<void> init() async {
   sl.registerFactory(
     () => EventCubit(
       eventUseCases: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => VendorCubit(
+      vendorUseCases: sl(),
     ),
   );
 

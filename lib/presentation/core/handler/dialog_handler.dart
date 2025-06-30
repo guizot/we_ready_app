@@ -45,4 +45,65 @@ class DialogHandler {
     );
   }
 
+  static void showConfirmDialog({
+    required BuildContext context,
+    required String title,
+    required String description,
+    required String confirmText,
+    required VoidCallback onConfirm,
+  }) {
+    showBottomSheet(
+      context: context,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            children: [
+              Container(
+                height: 5.0,
+                width: MediaQuery.of(context).size.width / 4,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).hoverColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                ),
+              ),
+              const SizedBox(height: 18.0),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                description,
+                style: const TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: onConfirm,
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Theme.of(context).iconTheme.color,
+                        padding: const EdgeInsets.all(16.0),
+                      ),
+                      child: Text(confirmText),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 }
+

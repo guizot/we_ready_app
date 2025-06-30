@@ -5,7 +5,7 @@ import 'package:we_ready_app/presentation/core/extension/number_extension.dart';
 import '../../../data/models/local/event_model.dart';
 import '../../../injector.dart';
 import '../../core/handler/dialog_handler.dart';
-import '../../core/widget/LoadingState.dart';
+import '../../core/widget/loading_state.dart';
 import '../../core/widget/text_field_item.dart';
 import 'cubit/event_cubit.dart';
 import 'cubit/event_state.dart';
@@ -59,7 +59,7 @@ class _EventAddState extends State<EventAdd> {
     }
   }
 
-  void onSubmit(BuildContext context) async {
+  void validateForm(BuildContext context) async {
     final formData = populateForm();
     if (formData['title']!.trim().isEmpty) {
       DialogHandler.showSnackBar(context: context, message: "Title cannot be empty");
@@ -73,12 +73,20 @@ class _EventAddState extends State<EventAdd> {
       DialogHandler.showSnackBar(context: context, message: "Description cannot be empty");
       return;
     }
+    if(widget.id != null) {
+      showSaveDialog(context, formData);
+    } else {
+      onSubmit(context, formData);
+    }
+  }
+
+  void onSubmit(BuildContext context, Map<String, String> data) async {
     try {
       await BlocProvider.of<EventCubit>(context).saveEvent(Event(
-        id: widget.id != null ? widget.id! : const Uuid().v4(),
-        title: formData['title']!,
-        budget: formData['budget']!,
-        description: formData['description']!
+          id: widget.id != null ? widget.id! : const Uuid().v4(),
+          title: data['title']!,
+          budget: data['budget']!,
+          description: data['description']!
       ));
       if(context.mounted) {
         Navigator.pop(context);
@@ -90,6 +98,19 @@ class _EventAddState extends State<EventAdd> {
     }
   }
 
+  void showSaveDialog(BuildContext context, Map<String, String> data) {
+    DialogHandler.showConfirmDialog(
+        context: context,
+        title: "Confirmation",
+        description: "We’ll save your updates so everything stays up to date. You can always make changes later.",
+        confirmText: "Yes, save",
+        onConfirm: () {
+          Navigator.pop(context);
+          onSubmit(context, data);
+        }
+    );
+  }
+
   void onDelete(BuildContext context) async {
     await BlocProvider.of<EventCubit>(context).deleteEvent(widget.id!);
     if(context.mounted) {
@@ -99,74 +120,53 @@ class _EventAddState extends State<EventAdd> {
   }
 
   void showDeleteDialog(BuildContext context) {
-    DialogHandler.showBottomSheet(
+    DialogHandler.showConfirmDialog(
         context: context,
-        child: Container(
+        title: "Confirmation",
+        description: "Deleting this will erase all related data and cannot be undone. Make sure this is what you really want to do.",
+        confirmText: "Yes, delete",
+        onConfirm: () => onDelete(context)
+    );
+  }
+
+  Widget eventInitial(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                TextFieldItem(
+                    title: "Title",
+                    controller: titleController
+                ),
+                TextFieldItem(
+                    title: "Budget",
+                    inputType: TextInputType.number,
+                    preText: "Rp",
+                    controller: budgetController
+                ),
+                TextFieldItem(
+                    title: "Description",
+                    inputType: TextInputType.multiline,
+                    controller: descController
+                ),
+              ],
+            )
+        ),
+        Container(
           padding: const EdgeInsets.all(16.0),
-          child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Container(
-                    height: 5.0,
-                    width: MediaQuery.of(context).size.width / 4,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).hoverColor,
-                        borderRadius: const BorderRadius.all(Radius.circular(25.0))
-                    ),
-                  ),
-                  const SizedBox(height: 18.0),
-                  const Text(
-                    "Confirmation",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8.0),
-                  const Text(
-                    "Deleting this will erase all related data and cannot be undone. Make sure this is what you really want to do.",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20.0),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FilledButton(
-                          onPressed: () => Navigator.pop(context),
-                          style: FilledButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            foregroundColor: Theme.of(context).iconTheme.color,
-                            side: BorderSide(
-                              color: Theme.of(context).iconTheme.color!,
-                              width: 1.5,
-                            ),
-                            padding: const EdgeInsets.all(16.0),
-                          ),
-                          child: const Text("Cancel"),
-                        )
-                      ),
-                      const SizedBox(width: 8.0),
-                      Expanded(
-                          child: FilledButton(
-                            onPressed: () => onDelete(context),
-                            style: FilledButton.styleFrom(
-                              backgroundColor: Theme.of(context).iconTheme.color,
-                              padding: const EdgeInsets.all(16.0),
-                            ),
-                            child: const Text("Delete"),
-                          )
-                      )
-                    ],
-                  ),
-                ],
-              )
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: () => validateForm(context),
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).iconTheme.color,
+              padding: const EdgeInsets.all(16.0),
+            ),
+            child: Text(widget.id == null ? "Submit" : "Save"),
           ),
-        )
+        ),
+      ],
     );
   }
 
@@ -192,44 +192,7 @@ class _EventAddState extends State<EventAdd> {
         body: BlocBuilder<EventCubit, EventCubitState>(
           builder: (blocContext, state) {
             if(state is EventInitial) {
-              return Column(
-                children: [
-                  Expanded(
-                      child: ListView(
-                        padding: const EdgeInsets.all(16.0),
-                        children: [
-                          TextFieldItem(
-                              title: "Title",
-                              controller: titleController
-                          ),
-                          TextFieldItem(
-                              title: "Budget",
-                              inputType: TextInputType.number,
-                              preText: "Rp",
-                              controller: budgetController
-                          ),
-                          TextFieldItem(
-                              title: "Description",
-                              inputType: TextInputType.multiline,
-                              controller: descController
-                          ),
-                        ],
-                      )
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: double.infinity,
-                    child: FilledButton(
-                      onPressed: () => onSubmit(context),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Theme.of(context).iconTheme.color,
-                        padding: const EdgeInsets.all(16.0),
-                      ),
-                      child: Text(widget.id == null ? "Submit" : "Save"),
-                    ),
-                  ),
-                ],
-              );
+              return eventInitial(context);
             }
             else if(state is EventLoading) {
               return const LoadingState();

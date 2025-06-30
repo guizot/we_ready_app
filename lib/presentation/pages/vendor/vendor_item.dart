@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:we_ready_app/presentation/core/constant/routes_values.dart';
+import 'package:we_ready_app/presentation/core/extension/number_extension.dart';
+import '../../../data/models/local/vendor_model.dart';
 import '../../core/widget/common_separator.dart';
 import '../../core/widget/dashed_container.dart';
 
 class VendorItem extends StatefulWidget {
-  const VendorItem({super.key, required this.vendorName, required this.vendorType, required this.amount, required this.icon });
-  final String vendorName;
-  final String vendorType;
-  final String amount;
-  final String icon;
+  const VendorItem({super.key, required this.item, required this.onTap });
+  final Vendor item;
+  final Function(String) onTap;
 
   @override
   State<VendorItem> createState() => _VendorItemState();
@@ -19,9 +19,7 @@ class _VendorItemState extends State<VendorItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, RoutesValues.vendorAdd, arguments: widget.vendorName);
-      },
+      onTap: () => widget.onTap(widget.item.id),
       child: Column(
         children: [
           Container(
@@ -50,7 +48,7 @@ class _VendorItemState extends State<VendorItem> {
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
-                        widget.vendorName,
+                        widget.item.name,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
@@ -70,10 +68,10 @@ class _VendorItemState extends State<VendorItem> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: Text(widget.vendorType),
+                      child: Text(widget.item.category),
                     ),
                     const SizedBox(width: 8.0),
-                    Text(widget.amount)
+                    Text("Rp ${int.parse(widget.item.budget).toCurrencyFormat()}")
                   ],
                 ),
                 const SizedBox(height: 16.0),
