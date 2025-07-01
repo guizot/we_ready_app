@@ -35,7 +35,7 @@ class _VendorAddState extends State<VendorAdd> {
   TextEditingController nameController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController budgetController = TextEditingController();
-  bool isLoading = true;
+  Vendor? vendor;
 
   Map<String, String> populateForm() {
     return {
@@ -49,12 +49,12 @@ class _VendorAddState extends State<VendorAdd> {
   void initState() {
     super.initState();
     if (widget.id != null) {
-      Vendor? vendor = BlocProvider.of<VendorCubit>(context).getVendor(widget.id!);
+      vendor = BlocProvider.of<VendorCubit>(context).getVendor(widget.id!);
       if(vendor != null) {
         setState(() {
-          nameController.text = vendor.name;
-          categoryController.text = vendor.category;
-          budgetController.text = int.parse(vendor.budget).toCurrencyFormat();
+          nameController.text = vendor!.name;
+          categoryController.text = vendor!.category;
+          budgetController.text = int.parse(vendor!.budget).toCurrencyFormat();
         });
       }
     }

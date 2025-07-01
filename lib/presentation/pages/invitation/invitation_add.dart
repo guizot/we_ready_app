@@ -37,7 +37,7 @@ class _InvitationAddState extends State<InvitationAdd> {
   TextEditingController categoryController = TextEditingController();
   TextEditingController packageController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
-  bool isLoading = true;
+  Invitation? invitation;
 
   Map<String, String> populateForm() {
     return {
@@ -52,13 +52,13 @@ class _InvitationAddState extends State<InvitationAdd> {
   void initState() {
     super.initState();
     if (widget.id != null) {
-      Invitation? invitation = BlocProvider.of<InvitationCubit>(context).getInvitation(widget.id!);
+      invitation = BlocProvider.of<InvitationCubit>(context).getInvitation(widget.id!);
       if(invitation != null) {
         setState(() {
-          nameController.text = invitation.name;
-          categoryController.text = invitation.category;
-          packageController.text = int.parse(invitation.invitationPackage).toCurrencyFormat();
-          confirmController.text = invitation.confirm;
+          nameController.text = invitation!.name;
+          categoryController.text = invitation!.category;
+          packageController.text = int.parse(invitation!.invitationPackage).toCurrencyFormat();
+          confirmController.text = invitation!.confirm;
         });
       }
     }

@@ -37,6 +37,7 @@ class _RundownAddState extends State<RundownAdd> {
   TextEditingController startController = TextEditingController();
   TextEditingController endController = TextEditingController();
   TextEditingController descController = TextEditingController();
+  Rundown? rundown;
 
   Map<String, String> populateForm() {
     return {
@@ -51,13 +52,13 @@ class _RundownAddState extends State<RundownAdd> {
   void initState() {
     super.initState();
     if (widget.id != null) {
-      Rundown? rundown = BlocProvider.of<RundownCubit>(context).getRundown(widget.id!);
+      rundown = BlocProvider.of<RundownCubit>(context).getRundown(widget.id!);
       if(rundown != null) {
         setState(() {
-          nameController.text = rundown.name;
-          startController.text = rundown.start;
-          endController.text = rundown.end;
-          descController.text = rundown.description;
+          nameController.text = rundown!.name;
+          startController.text = rundown!.start;
+          endController.text = rundown!.end;
+          descController.text = rundown!.description;
         });
       }
     }

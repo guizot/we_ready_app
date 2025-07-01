@@ -35,6 +35,7 @@ class _EventAddState extends State<EventAdd> {
   TextEditingController titleController = TextEditingController();
   TextEditingController budgetController = TextEditingController();
   TextEditingController descController = TextEditingController();
+  Event? event;
 
   Map<String, String> populateForm() {
     return {
@@ -48,12 +49,12 @@ class _EventAddState extends State<EventAdd> {
   void initState() {
     super.initState();
     if (widget.id != null) {
-      Event? event = BlocProvider.of<EventCubit>(context).getEvent(widget.id!);
+      event = BlocProvider.of<EventCubit>(context).getEvent(widget.id!);
       if(event != null) {
         setState(() {
-          titleController.text = event.title;
-          budgetController.text = int.parse(event.budget).toCurrencyFormat();
-          descController.text = event.description;
+          titleController.text = event!.title;
+          budgetController.text = int.parse(event!.budget).toCurrencyFormat();
+          descController.text = event!.description;
         });
       }
     }

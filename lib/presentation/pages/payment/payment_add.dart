@@ -37,7 +37,7 @@ class _PaymentAddState extends State<PaymentAdd> {
   TextEditingController nameController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController dateController = TextEditingController();
-  bool isLoading = true;
+  Payment? payment;
 
   Map<String, String> populateForm() {
     return {
@@ -51,12 +51,12 @@ class _PaymentAddState extends State<PaymentAdd> {
   void initState() {
     super.initState();
     if (widget.item.id != null) {
-      Payment? payment = BlocProvider.of<PaymentCubit>(context).getPayment(widget.item.id!);
+      payment = BlocProvider.of<PaymentCubit>(context).getPayment(widget.item.id!);
       if(payment != null) {
         setState(() {
-          nameController.text = payment.name;
-          amountController.text = int.parse(payment.amount).toCurrencyFormat();
-          dateController.text = payment.date;
+          nameController.text = payment!.name;
+          amountController.text = int.parse(payment!.amount).toCurrencyFormat();
+          dateController.text = payment!.date;
         });
       }
     }
