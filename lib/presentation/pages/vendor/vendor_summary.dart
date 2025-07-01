@@ -53,11 +53,6 @@ class _VendorSummaryState extends State<VendorSummary> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   IconValues.moneyBag,
-                  //   height: 15,
-                  //   width: 15,
-                  // ),
                   const Icon(
                     Icons.paid,
                     size: 18,
@@ -76,11 +71,6 @@ class _VendorSummaryState extends State<VendorSummary> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   IconValues.chartIncreasing,
-                  //   height: 15,
-                  //   width: 15,
-                  // ),
                   const Icon(
                     Icons.paid_outlined,
                     size: 18,
@@ -88,7 +78,25 @@ class _VendorSummaryState extends State<VendorSummary> {
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                      "Over Budget"
+                      "Unused Budget"
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['unusedBudget'])
+                ],
+              ),
+              const SizedBox(height: 8.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.money_off_rounded,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 8.0),
+                  const Expanded(
+                    child: Text(
+                        "Over Budget"
                     ),
                   ),
                   const SizedBox(width: 8.0),

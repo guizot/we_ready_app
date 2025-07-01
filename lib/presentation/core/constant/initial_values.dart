@@ -3,6 +3,7 @@ class InitialValues {
   Map<String, String> vendorInit(String budget) {
     return {
       'budget': 'Rp $budget',
+      'unusedBudget': 'Rp 0',
       'overBudget': 'Rp 0',
       'paid': 'Rp 0',
       'unpaid': 'Rp 0',

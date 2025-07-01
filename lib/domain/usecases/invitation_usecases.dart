@@ -4,7 +4,6 @@ import '../../data/models/local/invitation_model.dart';
 
 class InvitationUseCases {
 
-  /// REGION: INIT USE CASE
   final HiveRepo hiveRepo;
   InvitationUseCases({required this.hiveRepo});
 
@@ -30,20 +29,70 @@ class InvitationUseCases {
     }
   }
 
-
   Invitation? getInvitation(String id) {
     // space for business logic (before return / before send)
     return hiveRepo.getInvitation(id);
   }
 
   Future<void> saveInvitation(Invitation item) async {
-    // space for business logic (before return / before send)
-    return hiveRepo.saveInvitation(item.id, item);
+    await hiveRepo.saveInvitation(item.id, item);
+    final selected = getSelectedEvent();
+    if (selected != null && selected is Map && selected['id'] != null) {
+      await updateSummaryInvitation(selected['id']);
+    }
   }
 
   Future<void> deleteInvitation(String id) async {
-    // space for business logic (before return / before send)
-    return hiveRepo.deleteInvitation(id);
+    await hiveRepo.deleteInvitation(id);
+    final selected = getSelectedEvent();
+    if (selected != null && selected is Map && selected['id'] != null) {
+      await updateSummaryInvitation(selected['id']);
+    }
+  }
+
+  Future<void> updateSummaryInvitation(String eventId) async {
+    final allInvitations = hiveRepo.getAllInvitation()
+        .where((inv) => inv.eventId == eventId)
+        .toList();
+
+    if (allInvitations.isEmpty) {
+      await saveSummaryInvitation(eventId, {
+        'mails': '0 Mail',
+        'peoples': '0 Peoples',
+        'confirmed': '0',
+        'unconfirmed': '0',
+      });
+      return;
+    }
+
+    final totalMails = allInvitations.length;
+    int totalPeoples = 0;
+    int confirmed = 0;
+    int unconfirmed = 0;
+
+    for (var inv in allInvitations) {
+      final count = int.tryParse(inv.invitationPackage) ?? 0;
+      totalPeoples += count;
+
+      if (inv.confirm.toLowerCase() == 'true') {
+        confirmed += 1;
+      } else {
+        unconfirmed += 1;
+      }
+    }
+
+    final updatedSummary = {
+      'mails': '$totalMails Mail',
+      'peoples': '$totalPeoples Peoples',
+      'confirmed': '$confirmed',
+      'unconfirmed': '$unconfirmed',
+    };
+
+    await saveSummaryInvitation(eventId, updatedSummary);
+  }
+
+  Future<void> saveSummaryInvitation(String eventId, Map<String, dynamic> summary) async {
+    await hiveRepo.saveSetting('${HiveValues.summaryInvitation}_$eventId', summary);
   }
 
   dynamic getSelectedEvent() {

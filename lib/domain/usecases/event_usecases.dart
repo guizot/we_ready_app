@@ -2,6 +2,7 @@ import 'package:we_ready_app/data/core/const/hive_values.dart';
 import 'package:we_ready_app/domain/repositories/hive_repo.dart';
 import 'package:we_ready_app/presentation/core/constant/initial_values.dart';
 import 'package:we_ready_app/presentation/core/extension/event_extension.dart';
+import 'package:we_ready_app/presentation/core/extension/number_extension.dart';
 import 'package:we_ready_app/presentation/core/extension/string_extension.dart';
 import '../../data/models/local/event_model.dart';
 
@@ -36,12 +37,12 @@ class EventUseCases {
     final existing = getEvent(item.id);
     await hiveRepo.saveEvent(item.id, item);
     if (existing == null) {
-      await createEmptySummaries(item);
+      await createEmptySummary(item);
       await putSelectedEvent(item);
     } else {
       final selected = getSelectedEvent();
       final isSelected = selected != null && selected['id'] == item.id;
-      await updateVendorBudget(item);
+      await updateVendorSummary(item);
       if (isSelected) {
         await putSelectedEvent(item);
       }
@@ -111,16 +112,44 @@ class EventUseCases {
   }
 
 
-  Future<void> updateVendorBudget(Event item) async {
-    final summary = hiveRepo.getSetting('${HiveValues.summaryVendor}_${item.id}');
-    if (summary is Map) {
-      final updated = Map<String, dynamic>.from(summary);
-      updated['budget'] = 'Rp ${item.budget.toCurrencyFormat()}';
-      await saveSummaryVendor(item.id, updated);
+  Future<void> updateVendorSummary(Event item) async {
+    final eventId = item.id;
+
+    final allVendors = hiveRepo.getAllVendor().where((v) => v.eventId == eventId).toList();
+    final allPayments = hiveRepo.getAllPayment();
+
+    final budget = int.tryParse(
+        item.budget.replaceAll(RegExp(r'[^0-9]'), '')
+    ) ?? 0;
+    int total = 0;
+    int paid = 0;
+
+    for (final v in allVendors) {
+      total += int.tryParse(v.budget.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+
+      final vendorPayments = allPayments.where((p) => p.vendorId == v.id);
+      for (final p in vendorPayments) {
+        paid += int.tryParse(p.amount.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+      }
     }
+
+    final unpaid = total - paid;
+    final unusedBudget = total < budget ? budget - total : 0;
+    final overBudget = total > budget ? total - budget : 0;
+
+    final updated = {
+      'budget': 'Rp ${budget.toCurrencyFormat()}',
+      'unusedBudget': 'Rp ${unusedBudget.toCurrencyFormat()}',
+      'overBudget': 'Rp ${overBudget.toCurrencyFormat()}',
+      'paid': 'Rp ${paid.toCurrencyFormat()}',
+      'unpaid': 'Rp ${unpaid.toCurrencyFormat()}',
+      'total': 'Rp ${total.toCurrencyFormat()}',
+    };
+
+    await saveSummaryVendor(eventId, updated);
   }
 
-  Future<void> createEmptySummaries(Event item) async {
+  Future<void> createEmptySummary(Event item) async {
     await saveSummaryVendor(item.id, InitialValues().vendorInit(item.budget.toCurrencyFormat()));
     await saveSummaryInvitation(item.id, InitialValues().invitationInit());
     await saveSummaryRundown(item.id, InitialValues().rundownInit());
@@ -191,6 +220,5 @@ class EventUseCases {
       return null;
     }
   }
-
 
 }

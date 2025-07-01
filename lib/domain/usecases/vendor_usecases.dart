@@ -1,10 +1,10 @@
 import 'package:we_ready_app/domain/repositories/hive_repo.dart';
+import 'package:we_ready_app/presentation/core/extension/number_extension.dart';
 import '../../data/core/const/hive_values.dart';
 import '../../data/models/local/vendor_model.dart';
 
 class VendorUseCases {
 
-  /// REGION: INIT USE CASE
   final HiveRepo hiveRepo;
   VendorUseCases({required this.hiveRepo});
 
@@ -36,23 +36,59 @@ class VendorUseCases {
   }
 
   Future<void> saveVendor(Vendor item) async {
-    // space for business logic (before return / before send)
-    return hiveRepo.saveVendor(item.id, item);
+    await hiveRepo.saveVendor(item.id, item);
+    await updateVendorSummary();
   }
 
   Future<void> deleteVendor(String id) async {
-    try {
-      final allPayments = hiveRepo.getAllPayment();
-      final paymentIdsToDelete = allPayments
-          .where((payment) => payment.vendorId == id)
-          .map((payment) => payment.id)
-          .toList();
+    final allPayments = hiveRepo.getAllPayment();
+    final paymentIdsToDelete = allPayments
+        .where((payment) => payment.vendorId == id)
+        .map((payment) => payment.id)
+        .toList();
 
-      await hiveRepo.deleteAllPayment(paymentIdsToDelete);
-      await hiveRepo.deleteVendor(id);
-    } catch (e) {
-      rethrow;
+    await hiveRepo.deleteAllPayment(paymentIdsToDelete);
+    await hiveRepo.deleteVendor(id);
+    await updateVendorSummary();
+  }
+
+  Future<void> updateVendorSummary() async {
+    final selected = getSelectedEvent();
+    if (selected == null|| selected['id'] == null) return;
+
+    final eventId = selected['id'];
+    final allVendors = hiveRepo.getAllVendor().where((v) => v.eventId == eventId).toList();
+    final allPayments = hiveRepo.getAllPayment();
+
+    final budget = int.tryParse(
+      (selected['budget'] ?? '0').toString().replaceAll(RegExp(r'[^0-9]'), '')
+    ) ?? 0;
+    int total = 0;
+    int paid = 0;
+
+    for (final v in allVendors) {
+      total += int.tryParse(v.budget.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+
+      final vendorPayments = allPayments.where((p) => p.vendorId == v.id);
+      for (final p in vendorPayments) {
+        paid += int.tryParse(p.amount.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+      }
     }
+
+    final unpaid = total - paid;
+    final unusedBudget = total < budget ? budget - total : 0;
+    final overBudget = total > budget ? total - budget : 0;
+
+    final summary = {
+      'budget': 'Rp ${budget.toCurrencyFormat()}',
+      'unusedBudget': 'Rp ${unusedBudget.toCurrencyFormat()}',
+      'overBudget': 'Rp ${overBudget.toCurrencyFormat()}',
+      'paid': 'Rp ${paid.toCurrencyFormat()}',
+      'unpaid': 'Rp ${unpaid.toCurrencyFormat()}',
+      'total': 'Rp ${total.toCurrencyFormat()}',
+    };
+
+    await hiveRepo.saveSetting('${HiveValues.summaryVendor}_$eventId', summary);
   }
 
   dynamic getSelectedEvent() {

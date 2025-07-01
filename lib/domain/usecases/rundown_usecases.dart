@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 
 class RundownUseCases {
 
-  /// REGION: INIT USE CASE
   final HiveRepo hiveRepo;
   RundownUseCases({required this.hiveRepo});
 
@@ -38,13 +37,82 @@ class RundownUseCases {
   }
 
   Future<void> saveRundown(Rundown item) async {
-    // space for business logic (before return / before send)
-    return hiveRepo.saveRundown(item.id, item);
+    await hiveRepo.saveRundown(item.id, item);
+    final selected = getSelectedEvent();
+    if (selected != null && selected is Map && selected['id'] != null) {
+      await updateSummaryRundown(selected['id']);
+    }
   }
 
   Future<void> deleteRundown(String id) async {
-    // space for business logic (before return / before send)
-    return hiveRepo.deleteRundown(id);
+    await hiveRepo.deleteRundown(id);
+    final selected = getSelectedEvent();
+    if (selected != null && selected is Map && selected['id'] != null) {
+      await updateSummaryRundown(selected['id']);
+    }
+  }
+
+  Future<void> updateSummaryRundown(String eventId) async {
+    final allRundowns = hiveRepo.getAllRundown();
+    final rundowns = allRundowns.where((r) => r.eventId == eventId).toList();
+
+    if (rundowns.isEmpty) {
+      await saveSummaryRundown(eventId, {
+        'sessions': '0 Sessions',
+        'totalHours': '0 Hr 0 Min',
+        'totalDays': '0 Days',
+        'startAt': '-',
+        'endAt': '-',
+      });
+      return;
+    }
+
+    final dateFormat = DateFormat('dd MMM yyyy - HH:mm');
+    final durations = <Duration>[];
+    final startTimes = <DateTime>[];
+    final endTimes = <DateTime>[];
+    final uniqueDays = <String>{};
+
+    DateTime dateOnly(DateTime dt) => DateTime(dt.year, dt.month, dt.day);
+
+    for (final r in rundowns) {
+      final start = dateFormat.parse(r.start);
+      final end = dateFormat.parse(r.end);
+
+      durations.add(end.difference(start));
+      startTimes.add(start);
+      endTimes.add(end);
+
+      final startDate = dateOnly(start);
+      final endDate = dateOnly(end);
+
+      for (var date = startDate;
+      !date.isAfter(endDate);
+      date = date.add(const Duration(days: 1))) {
+        uniqueDays.add(DateFormat('yyyy-MM-dd').format(date));
+      }
+    }
+
+    final totalDuration = durations.fold(Duration.zero, (a, b) => a + b);
+    final totalHours = totalDuration.inHours;
+    final totalMinutes = totalDuration.inMinutes % 60;
+
+    final firstStart = startTimes.reduce((a, b) => a.isBefore(b) ? a : b);
+    final lastEnd = endTimes.reduce((a, b) => a.isAfter(b) ? a : b);
+
+    final summary = {
+      'sessions': '${rundowns.length} Sessions',
+      'totalHours': '$totalHours Hr $totalMinutes Min',
+      'totalDays': '${uniqueDays.length} Days',
+      'startAt': dateFormat.format(firstStart),
+      'endAt': dateFormat.format(lastEnd),
+    };
+
+    await saveSummaryRundown(eventId, summary);
+  }
+
+  Future<void> saveSummaryRundown(String eventId, Map<String, dynamic> summary) async {
+    await hiveRepo.saveSetting('${HiveValues.summaryRundown}_$eventId', summary);
   }
 
   dynamic getSelectedEvent() {
