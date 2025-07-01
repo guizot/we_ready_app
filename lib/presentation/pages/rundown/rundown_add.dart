@@ -116,6 +116,7 @@ class _RundownAddState extends State<RundownAdd> {
               end: data['end']!,
               description: data['description']!,
               eventId: eventId,
+              createdAt: widget.id != null ? rundown!.createdAt : DateTime.now(),
             )
         );
         if(context.mounted) {

@@ -23,13 +23,14 @@ class RundownAdapter extends TypeAdapter<Rundown> {
       end: fields[3] as String,
       description: fields[4] as String,
       eventId: fields[5] as String,
+      createdAt: fields[6] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, Rundown obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class RundownAdapter extends TypeAdapter<Rundown> {
       ..writeByte(4)
       ..write(obj.description)
       ..writeByte(5)
-      ..write(obj.eventId);
+      ..write(obj.eventId)
+      ..writeByte(6)
+      ..write(obj.createdAt);
   }
 
   @override

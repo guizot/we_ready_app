@@ -16,6 +16,9 @@ class Event extends HiveObject {
   @HiveField(3)
   String description;
 
+  @HiveField(4)
+  DateTime createdAt;
+
   bool selected = false;
 
   Event({
@@ -23,6 +26,7 @@ class Event extends HiveObject {
     required this.title,
     required this.budget,
     required this.description,
+    required this.createdAt,
     this.selected = false,
   });
 }

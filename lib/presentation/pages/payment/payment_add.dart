@@ -91,7 +91,8 @@ class _PaymentAddState extends State<PaymentAdd> {
             name: data['name']!,
             amount: data['amount']!,
             date: data['date']!,
-            vendorId: widget.item.vendorId
+            vendorId: widget.item.vendorId,
+            createdAt: widget.item.id != null ? payment!.createdAt : DateTime.now(),
           )
       );
       if(context.mounted) {

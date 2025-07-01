@@ -22,6 +22,9 @@ class Rundown extends HiveObject {
   @HiveField(5)
   String eventId; // foreign key to Event
 
+  @HiveField(6)
+  DateTime createdAt;
+
   Rundown({
     required this.id,
     required this.name,
@@ -29,5 +32,6 @@ class Rundown extends HiveObject {
     required this.end,
     required this.description,
     required this.eventId,
+    required this.createdAt,
   });
 }

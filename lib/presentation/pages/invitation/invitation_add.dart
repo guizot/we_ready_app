@@ -101,6 +101,7 @@ class _InvitationAddState extends State<InvitationAdd> {
               invitationPackage: data['package']!,
               confirm: data['confirm']!,
               eventId: eventId,
+              createdAt: widget.id != null ? invitation!.createdAt : DateTime.now(),
             )
         );
         if(context.mounted) {

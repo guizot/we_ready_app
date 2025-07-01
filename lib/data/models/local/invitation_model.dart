@@ -22,6 +22,9 @@ class Invitation extends HiveObject {
   @HiveField(5)
   String eventId; // foreign key to Event
 
+  @HiveField(6)
+  DateTime createdAt;
+
   Invitation({
     required this.id,
     required this.name,
@@ -29,5 +32,6 @@ class Invitation extends HiveObject {
     required this.invitationPackage,
     required this.confirm,
     required this.eventId,
+    required this.createdAt,
   });
 }

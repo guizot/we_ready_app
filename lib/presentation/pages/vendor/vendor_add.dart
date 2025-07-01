@@ -91,7 +91,8 @@ class _VendorAddState extends State<VendorAdd> {
                 name: data['name']!,
                 category: data['category']!,
                 budget: data['budget']!,
-                eventId: eventId
+                eventId: eventId,
+                createdAt: widget.id != null ? vendor!.createdAt : DateTime.now(),
             )
         );
         if(context.mounted) {

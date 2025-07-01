@@ -19,11 +19,15 @@ class Vendor extends HiveObject {
   @HiveField(4)
   String eventId; // foreign key to Event
 
+  @HiveField(5)
+  DateTime createdAt;
+
   Vendor({
     required this.id,
     required this.name,
     required this.category,
     required this.budget,
     required this.eventId,
+    required this.createdAt,
   });
 }

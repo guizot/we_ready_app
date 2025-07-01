@@ -83,12 +83,15 @@ class _EventAddState extends State<EventAdd> {
 
   void onSubmit(BuildContext context, Map<String, String> data) async {
     try {
-      await BlocProvider.of<EventCubit>(context).saveEvent(Event(
+      await BlocProvider.of<EventCubit>(context).saveEvent(
+        Event(
           id: widget.id != null ? widget.id! : const Uuid().v4(),
           title: data['title']!,
           budget: data['budget']!,
-          description: data['description']!
-      ));
+          description: data['description']!,
+          createdAt: widget.id != null ? event!.createdAt : DateTime.now(),
+        )
+      );
       if(context.mounted) {
         Navigator.pop(context);
       }

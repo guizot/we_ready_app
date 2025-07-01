@@ -19,11 +19,15 @@ class Payment extends HiveObject {
   @HiveField(4)
   String vendorId; // foreign key to Vendor
 
+  @HiveField(5)
+  DateTime createdAt;
+
   Payment({
     required this.id,
     required this.name,
     required this.amount,
     required this.date,
     required this.vendorId,
+    required this.createdAt,
   });
 }
