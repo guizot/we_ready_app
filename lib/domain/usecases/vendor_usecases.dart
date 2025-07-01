@@ -33,8 +33,18 @@ class VendorUseCases {
   }
 
   Future<void> deleteVendor(String id) async {
-    // space for business logic (before return / before send)
-    return hiveRepo.deleteVendor(id);
+    try {
+      final allPayments = hiveRepo.getAllPayment();
+      final paymentIdsToDelete = allPayments
+          .where((payment) => payment.vendorId == id)
+          .map((payment) => payment.id)
+          .toList();
+
+      await hiveRepo.deleteAllPayment(paymentIdsToDelete);
+      await hiveRepo.deleteVendor(id);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   dynamic getSelectedEvent() {

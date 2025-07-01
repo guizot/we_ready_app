@@ -52,9 +52,44 @@ class EventUseCases {
     final selectedItem = getSelectedEvent();
     final selectedId = selectedItem?['id'];
 
+    // Delete all related VENDORS and their PAYMENTS
+    final allVendors = hiveRepo.getAllVendor();
+    final vendorsToDelete = allVendors.where((v) => v.eventId == id).toList();
+
+    // Collect vendor IDs and related payment IDs
+    final vendorIds = vendorsToDelete.map((v) => v.id).toSet();
+    final allPayments = hiveRepo.getAllPayment();
+    final paymentIds = allPayments
+        .where((p) => vendorIds.contains(p.vendorId))
+        .map((p) => p.id)
+        .toList();
+
+    await hiveRepo.deleteAllPayment(paymentIds);
+    await hiveRepo.deleteAllVendor(vendorIds);
+
+    // Delete all related INVITATIONS
+    final allInvitations = hiveRepo.getAllInvitation();
+    final invitationIds = allInvitations
+        .where((i) => i.eventId == id)
+        .map((i) => i.id)
+        .toList();
+
+    await hiveRepo.deleteAllInvitation(invitationIds);
+
+    // Delete all related RUNDOWNS
+    final allRundowns = hiveRepo.getAllRundown();
+    final rundownIds = allRundowns
+        .where((r) => r.eventId == id)
+        .map((r) => r.id)
+        .toList();
+
+    await hiveRepo.deleteAllRundown(rundownIds);
+
+    // Delete the EVENT itself
     await hiveRepo.deleteEvent(id);
     await deleteSummary(id);
 
+    // Update selected event if needed
     if (selectedId == id) {
       final events = hiveRepo.getAllEvent();
       if (events.isNotEmpty) {

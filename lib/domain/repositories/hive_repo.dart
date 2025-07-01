@@ -12,6 +12,7 @@ abstract class HiveRepo {
   Event? getEvent(String id);
   Future<void> saveEvent(String id, Event item);
   Future<void> deleteEvent(String id);
+  Future<void> deleteAllEvent(Iterable<dynamic> keys);
 
   // endregion
 
@@ -21,6 +22,7 @@ abstract class HiveRepo {
     Vendor? getVendor(String id);
     Future<void> saveVendor(String id, Vendor item);
     Future<void> deleteVendor(String id);
+    Future<void> deleteAllVendor(Iterable<dynamic> keys);
 
   // endregion
 
@@ -30,6 +32,7 @@ abstract class HiveRepo {
   Invitation? getInvitation(String id);
   Future<void> saveInvitation(String id, Invitation item);
   Future<void> deleteInvitation(String id);
+  Future<void> deleteAllInvitation(Iterable<dynamic> keys);
 
   // endregion
 
@@ -39,6 +42,7 @@ abstract class HiveRepo {
   Rundown? getRundown(String id);
   Future<void> saveRundown(String id, Rundown item);
   Future<void> deleteRundown(String id);
+  Future<void> deleteAllRundown(Iterable<dynamic> keys);
 
   // endregion
 
@@ -48,6 +52,7 @@ abstract class HiveRepo {
   Payment? getPayment(String id);
   Future<void> savePayment(String id, Payment item);
   Future<void> deletePayment(String id);
+  Future<void> deleteAllPayment(Iterable<dynamic> keys);
 
   // endregion
 

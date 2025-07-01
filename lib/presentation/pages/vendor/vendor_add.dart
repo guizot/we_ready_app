@@ -121,9 +121,9 @@ class _VendorAddState extends State<VendorAdd> {
   }
 
   void onDelete(BuildContext context) async {
+    Navigator.pop(context);
     await BlocProvider.of<VendorCubit>(context).deleteVendor(widget.id!);
     if(context.mounted) {
-      Navigator.pop(context);
       Navigator.pop(context);
     }
   }

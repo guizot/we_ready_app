@@ -30,7 +30,9 @@ class VendorCubit extends Cubit<VendorCubitState> {
   }
 
   Future<void> deleteVendor(String id) async {
+    emit(VendorLoading());
     await vendorUseCases.deleteVendor(id);
+    emit(VendorInitial());
   }
 
   String? getSelectedEventId() {

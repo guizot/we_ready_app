@@ -36,6 +36,11 @@ class HiveRepoImpl implements HiveRepo {
     await hiveDataSource.eventBox.delete(id);
   }
 
+  @override
+  Future<void> deleteAllEvent(Iterable<dynamic> keys) async {
+    await hiveDataSource.eventBox.deleteAll(keys);
+  }
+
   // endregion
 
   // region VENDOR
@@ -58,6 +63,11 @@ class HiveRepoImpl implements HiveRepo {
   @override
   Future<void> deleteVendor(String id) async {
     await hiveDataSource.vendorBox.delete(id);
+  }
+
+  @override
+  Future<void> deleteAllVendor(Iterable<dynamic> keys) async {
+    await hiveDataSource.vendorBox.deleteAll(keys);
   }
 
   // endregion
@@ -84,6 +94,11 @@ class HiveRepoImpl implements HiveRepo {
     await hiveDataSource.invitationBox.delete(id);
   }
 
+  @override
+  Future<void> deleteAllInvitation(Iterable<dynamic> keys) async {
+    await hiveDataSource.invitationBox.deleteAll(keys);
+  }
+
   // endregion
 
   // region RUNDOWN
@@ -108,6 +123,11 @@ class HiveRepoImpl implements HiveRepo {
     await hiveDataSource.rundownBox.delete(id);
   }
 
+  @override
+  Future<void> deleteAllRundown(Iterable<dynamic> keys) async {
+    await hiveDataSource.rundownBox.deleteAll(keys);
+  }
+
   // endregion
 
   // region PAYMENT
@@ -130,6 +150,11 @@ class HiveRepoImpl implements HiveRepo {
   @override
   Future<void> deletePayment(String id) async {
     await hiveDataSource.paymentBox.delete(id);
+  }
+
+  @override
+  Future<void> deleteAllPayment(Iterable<dynamic> keys) async {
+    await hiveDataSource.paymentBox.deleteAll(keys);
   }
 
   // endregion

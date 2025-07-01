@@ -112,9 +112,9 @@ class _EventAddState extends State<EventAdd> {
   }
 
   void onDelete(BuildContext context) async {
+    Navigator.pop(context);
     await BlocProvider.of<EventCubit>(context).deleteEvent(widget.id!);
     if(context.mounted) {
-      Navigator.pop(context);
       Navigator.pop(context);
     }
   }

@@ -31,7 +31,9 @@ class EventCubit extends Cubit<EventCubitState> {
   }
 
   Future<void> deleteEvent(String id) async {
+    emit(EventLoading());
     await eventUseCases.deleteEvent(id);
+    emit(EventInitial());
   }
 
   Future<void> selectEvent(Event item) async {
