@@ -28,19 +28,19 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Theme.of(context).colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           centerTitle: true,
-          actions: currentPageIndex != 0 ? [
+          actions: [
             Container(
               margin: const EdgeInsets.only(right: 8.0),
               child: IconButton(
                 icon: const Icon(Icons.add_circle_outline_sharp),
                 tooltip: 'Add',
                 onPressed: () {
-                  // if(currentPageIndex == 0) {
-                  //   Navigator.pushNamed(context, RoutesValues.eventAdd).then((_) {
-                  //     eventPageKey.currentState?.onSelectedEventChanged();
-                  //   });
-                  // }
-                  if(currentPageIndex == 1) {
+                  if(currentPageIndex == 0) {
+                    Navigator.pushNamed(context, RoutesValues.eventAdd).then((_) {
+                      eventPageKey.currentState?.refreshData();
+                    });
+                  }
+                  else if(currentPageIndex == 1) {
                     Navigator.pushNamed(context, RoutesValues.vendorAdd).then((_) {
                       vendorPageKey.currentState?.refreshData();
                     });
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             )
-          ] : null,
+          ],
         ),
         bottomNavigationBar: Stack(
           children: [

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../core/constant/routes_values.dart';
+import 'package:we_ready_app/presentation/core/extension/number_extension.dart';
+import '../../../data/models/local/payment_model.dart';
 import '../../core/widget/common_separator.dart';
 
 class PaymentItem extends StatefulWidget {
-  const PaymentItem({super.key, required this.paymentCount, required this.amount, required this.date });
-  final String paymentCount;
-  final String amount;
-  final String date;
+  const PaymentItem({super.key, required this.item, required this.onTap });
+  final Payment item;
+  final Function(String) onTap;
 
   @override
   State<PaymentItem> createState() => _PaymentItemState();
@@ -17,9 +17,7 @@ class _PaymentItemState extends State<PaymentItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, RoutesValues.paymentAdd, arguments: "123");
-      },
+      onTap: () => widget.onTap(widget.item.id),
       child: Column(
         children: [
           Container(
@@ -48,7 +46,7 @@ class _PaymentItemState extends State<PaymentItem> {
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
-                        widget.paymentCount,
+                        widget.item.name,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
@@ -71,7 +69,7 @@ class _PaymentItemState extends State<PaymentItem> {
                       child: Text("Amount"),
                     ),
                     const SizedBox(width: 8.0),
-                    Text(widget.amount)
+                    Text("Rp ${int.parse(widget.item.amount).toCurrencyFormat()}")
                   ],
                 ),
                 const SizedBox(height: 8.0),
@@ -82,7 +80,7 @@ class _PaymentItemState extends State<PaymentItem> {
                       child: Text("Date"),
                     ),
                     const SizedBox(width: 8.0),
-                    Text(widget.date)
+                    Text(widget.item.date)
                   ],
                 ),
               ],

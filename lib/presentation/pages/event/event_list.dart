@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:we_ready_app/presentation/core/widget/add_item.dart';
-
 import '../../../data/models/local/event_model.dart';
 import 'event_item.dart';
 
@@ -8,14 +6,12 @@ class EventList extends StatefulWidget {
   const EventList({
     super.key,
     required this.events,
-    required this.onAdd,
     required this.onEdit,
     required this.onSelect,
     required this.onBack,
   });
 
   final List<Event> events;
-  final Function onAdd;
   final Function(String) onEdit;
   final Function(Event) onSelect;
   final Function onBack;
@@ -54,10 +50,10 @@ class _EventList extends State<EventList> {
                 },
               );
             }),
-            AddItem(
-              name: "Add Event +",
-              onAdd: widget.onAdd,
-            ),
+            // AddItem(
+            //   name: "Add Event +",
+            //   onAdd: widget.onAdd,
+            // ),
           ],
         )
     );

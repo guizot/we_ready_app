@@ -33,8 +33,12 @@ class RundownCubit extends Cubit<RundownCubitState> {
     await rundownUseCases.deleteRundown(id);
   }
 
-  String getSelectedEventId() {
-    return rundownUseCases.getSelectedEvent()['id'];
+  String? getSelectedEventId() {
+    try {
+      return rundownUseCases.getSelectedEvent()['id'];
+    } catch(e) {
+      return null;
+    }
   }
 
 }

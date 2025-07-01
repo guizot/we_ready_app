@@ -83,18 +83,22 @@ class _VendorAddState extends State<VendorAdd> {
 
   void onSubmit(BuildContext context, Map<String, String> data) async {
     try {
-      String eventId = BlocProvider.of<VendorCubit>(context).getSelectedEventId();
-      await BlocProvider.of<VendorCubit>(context).saveVendor(
-        Vendor(
-          id: widget.id != null ? widget.id! : const Uuid().v4(),
-          name: data['name']!,
-          category: data['category']!,
-          budget: data['budget']!,
-          eventId: eventId
-        )
-      );
-      if(context.mounted) {
-        Navigator.pop(context);
+      String? eventId = BlocProvider.of<VendorCubit>(context).getSelectedEventId();
+      if(eventId != null) {
+        await BlocProvider.of<VendorCubit>(context).saveVendor(
+            Vendor(
+                id: widget.id != null ? widget.id! : const Uuid().v4(),
+                name: data['name']!,
+                category: data['category']!,
+                budget: data['budget']!,
+                eventId: eventId
+            )
+        );
+        if(context.mounted) {
+          Navigator.pop(context);
+        }
+      } else {
+        DialogHandler.showSnackBar(context: context, message: "Please add and select event before add vendor.");
       }
     } catch(e) {
       if(context.mounted) {

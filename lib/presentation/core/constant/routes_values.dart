@@ -8,5 +8,6 @@ class RoutesValues {
   static const String rundownAdd = '/rundown-add';
   static const String paymentAdd = '/payment-add';
   static const String eventAdd = '/event-add';
+  static const String setting = '/setting';
 
 }

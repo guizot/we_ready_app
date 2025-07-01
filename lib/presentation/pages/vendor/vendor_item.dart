@@ -77,7 +77,9 @@ class _VendorItemState extends State<VendorItem> {
                 const SizedBox(height: 16.0),
                 GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, RoutesValues.payment);
+                      Navigator.pushNamed(context, RoutesValues.payment, arguments: widget.item.id).then((value) {
+                        
+                      });
                     },
                     child: DashedBorderContainer(
                       borderColor: Colors.grey,

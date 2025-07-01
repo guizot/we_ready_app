@@ -1,5 +1,6 @@
 import 'package:we_ready_app/domain/repositories/hive_repo.dart';
 import '../../data/models/local/payment_model.dart';
+import '../../data/models/local/vendor_model.dart';
 
 class PaymentUseCases {
 
@@ -7,9 +8,13 @@ class PaymentUseCases {
   final HiveRepo hiveRepo;
   PaymentUseCases({required this.hiveRepo});
 
-  List<Payment> getAllPayment() {
-    // space for business logic (before return / before send)
-    return hiveRepo.getAllPayment();
+  List<Payment> getAllPayment(String vendorId) {
+    try {
+      final allPayments = hiveRepo.getAllPayment();
+      return allPayments.where((vendor) => vendor.vendorId == vendorId).toList();
+    } catch (e) {
+      return [];
+    }
   }
 
   Payment? getPayment(String id) {
@@ -25,6 +30,11 @@ class PaymentUseCases {
   Future<void> deletePayment(String id) async {
     // space for business logic (before return / before send)
     return hiveRepo.deletePayment(id);
+  }
+
+  Vendor? getVendor(String id) {
+    // space for business logic (before return / before send)
+    return hiveRepo.getVendor(id);
   }
 
 }

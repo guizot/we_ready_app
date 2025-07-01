@@ -105,19 +105,23 @@ class _RundownAddState extends State<RundownAdd> {
 
   void onSubmit(BuildContext context, Map<String, String> data) async {
     try {
-      String eventId = BlocProvider.of<RundownCubit>(context).getSelectedEventId();
-      await BlocProvider.of<RundownCubit>(context).saveRundown(
-          Rundown(
-            id: widget.id != null ? widget.id! : const Uuid().v4(),
-            name: data['name']!,
-            start: data['start']!,
-            end: data['end']!,
-            description: data['description']!,
-            eventId: eventId,
-          )
-      );
-      if(context.mounted) {
-        Navigator.pop(context);
+      String? eventId = BlocProvider.of<RundownCubit>(context).getSelectedEventId();
+      if(eventId != null) {
+        await BlocProvider.of<RundownCubit>(context).saveRundown(
+            Rundown(
+              id: widget.id != null ? widget.id! : const Uuid().v4(),
+              name: data['name']!,
+              start: data['start']!,
+              end: data['end']!,
+              description: data['description']!,
+              eventId: eventId,
+            )
+        );
+        if(context.mounted) {
+          Navigator.pop(context);
+        }
+      } else {
+        DialogHandler.showSnackBar(context: context, message: "Please add and select event before add rundown.");
       }
     } catch(e) {
       if(context.mounted) {

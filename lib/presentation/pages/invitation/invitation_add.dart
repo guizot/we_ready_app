@@ -91,19 +91,23 @@ class _InvitationAddState extends State<InvitationAdd> {
 
   void onSubmit(BuildContext context, Map<String, String> data) async {
     try {
-      String eventId = BlocProvider.of<InvitationCubit>(context).getSelectedEventId();
-      await BlocProvider.of<InvitationCubit>(context).saveInvitation(
-          Invitation(
+      String? eventId = BlocProvider.of<InvitationCubit>(context).getSelectedEventId();
+      if(eventId != null) {
+        await BlocProvider.of<InvitationCubit>(context).saveInvitation(
+            Invitation(
               id: widget.id != null ? widget.id! : const Uuid().v4(),
               name: data['name']!,
               category: data['category']!,
               invitationPackage: data['package']!,
               confirm: data['confirm']!,
               eventId: eventId,
-          )
-      );
-      if(context.mounted) {
-        Navigator.pop(context);
+            )
+        );
+        if(context.mounted) {
+          Navigator.pop(context);
+        }
+      } else {
+        DialogHandler.showSnackBar(context: context, message: "Please add and select event before add invitation.");
       }
     } catch(e) {
       if(context.mounted) {

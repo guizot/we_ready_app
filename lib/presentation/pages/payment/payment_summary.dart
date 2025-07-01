@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:we_ready_app/presentation/core/extension/number_extension.dart';
+import '../../../data/models/local/payment_model.dart';
+import '../../../data/models/local/vendor_model.dart';
 import '../../core/widget/common_separator.dart';
 
 class PaymentSummary extends StatefulWidget {
-  const PaymentSummary({super.key, required this.vendorName });
-  final String vendorName;
+  const PaymentSummary({super.key, required this.item, required this.payments });
+  final Vendor? item;
+  final List<Payment> payments;
 
   @override
   State<PaymentSummary> createState() => _PaymentSummaryState();
@@ -13,6 +17,15 @@ class _PaymentSummaryState extends State<PaymentSummary> {
 
   @override
   Widget build(BuildContext context) {
+
+    int totalBudget = int.tryParse(widget.item?.budget ?? '0') ?? 0;
+
+    int totalPaid = widget.payments.fold<int>(0, (sum, item) {
+      return sum + (int.tryParse(item.amount) ?? 0);
+    });
+
+    int totalUnpaid = totalBudget - totalPaid;
+
     return Column(
       children: [
         Container(
@@ -43,7 +56,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
-                        widget.vendorName,
+                        widget.item?.name ?? '',
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
@@ -58,7 +71,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 color: Colors.grey,
               ),
 
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -66,22 +79,22 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.price_change_rounded,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Price"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 50.000.000")
+                  const SizedBox(width: 8.0),
+                  Text("Rp ${int.parse(widget.item!.budget).toCurrencyFormat()}")
                 ],
               ),
               const SizedBox(height: 8.0),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -89,18 +102,18 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.list_alt_rounded,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                       "Type"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Wedding Organizer")
+                  const SizedBox(width: 8.0),
+                  Text(widget.item?.category ?? '')
                 ],
               ),
 
@@ -108,7 +121,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 color: Colors.grey,
               ),
 
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -116,22 +129,22 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.check_circle,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Paid"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 50.000.000")
+                  const SizedBox(width: 8.0),
+                  Text("Rp ${totalPaid.toCurrencyFormat()}")
                 ],
               ),
               const SizedBox(height: 8.0),
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Image.asset(
@@ -139,18 +152,18 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   //   height: 15,
                   //   width: 15,
                   // ),
-                  Icon(
+                  const Icon(
                     Icons.check_circle_outline,
                     size: 18,
                   ),
-                  SizedBox(width: 8.0),
-                  Expanded(
+                  const SizedBox(width: 8.0),
+                  const Expanded(
                     child: Text(
                         "Unpaid"
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Text("Rp 50.000.000")
+                  const SizedBox(width: 8.0),
+                  Text("Rp ${totalUnpaid.toCurrencyFormat()}")
                 ],
               ),
 

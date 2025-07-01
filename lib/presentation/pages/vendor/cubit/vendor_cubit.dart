@@ -33,8 +33,12 @@ class VendorCubit extends Cubit<VendorCubitState> {
     await vendorUseCases.deleteVendor(id);
   }
 
-  String getSelectedEventId() {
-    return vendorUseCases.getSelectedEvent()['id'];
+  String? getSelectedEventId() {
+    try {
+      return vendorUseCases.getSelectedEvent()['id'];
+    } catch(e) {
+      return null;
+    }
   }
 
 

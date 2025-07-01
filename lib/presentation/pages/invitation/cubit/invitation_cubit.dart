@@ -33,8 +33,12 @@ class InvitationCubit extends Cubit<InvitationCubitState> {
     await invitationUseCases.deleteInvitation(id);
   }
 
-  String getSelectedEventId() {
-    return invitationUseCases.getSelectedEvent()['id'];
+  String? getSelectedEventId() {
+    try {
+      return invitationUseCases.getSelectedEvent()['id'];
+    } catch(e) {
+      return null;
+    }
   }
 
 }
