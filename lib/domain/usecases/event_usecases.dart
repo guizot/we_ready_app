@@ -12,6 +12,7 @@ class EventUseCases {
 
   List<Event> getAllEvent() {
     final events = hiveRepo.getAllEvent();
+    events.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
     try {
       final selectedItem = getSelectedEvent();
       final selectedId = selectedItem['id'];
@@ -23,7 +24,6 @@ class EventUseCases {
         events.first.selected = true;
       }
     }
-    // space for business logic (before return / before send)
     return events;
   }
 

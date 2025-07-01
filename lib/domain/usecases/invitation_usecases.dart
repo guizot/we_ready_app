@@ -14,13 +14,22 @@ class InvitationUseCases {
       if (selected != null) {
         final eventId = selected['id'];
         final allInvitations = hiveRepo.getAllInvitation();
-        return allInvitations.where((invitation) => invitation.eventId == eventId).toList();
+        final filteredInvitations = allInvitations
+            .where((invitation) => invitation.eventId == eventId)
+            .toList();
+        filteredInvitations.sort((a, b) {
+          final aTime = a.createdAt;
+          final bTime = b.createdAt;
+          return bTime.compareTo(aTime);
+        });
+        return filteredInvitations;
       }
       return [];
     } catch (e) {
       return [];
     }
   }
+
 
   Invitation? getInvitation(String id) {
     // space for business logic (before return / before send)

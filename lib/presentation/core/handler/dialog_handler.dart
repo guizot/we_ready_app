@@ -12,17 +12,27 @@ class DialogHandler {
       // isDismissible: false,
       // enableDrag: false,
       builder: (BuildContext context) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
+        final maxHeight = MediaQuery.of(context).size.height * 0.8;
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          ),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: maxHeight,
             ),
-            child: Wrap(
-              children: [child]
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: SingleChildScrollView(
+                child: child,
+              ),
             ),
           ),
         );
-      },
+      }
     );
 
   }

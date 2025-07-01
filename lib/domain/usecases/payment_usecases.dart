@@ -11,11 +11,20 @@ class PaymentUseCases {
   List<Payment> getAllPayment(String vendorId) {
     try {
       final allPayments = hiveRepo.getAllPayment();
-      return allPayments.where((vendor) => vendor.vendorId == vendorId).toList();
+      final filteredPayments = allPayments
+          .where((payment) => payment.vendorId == vendorId)
+          .toList();
+      filteredPayments.sort((a, b) {
+        final aTime = a.createdAt;
+        final bTime = b.createdAt;
+        return aTime.compareTo(bTime);
+      });
+      return filteredPayments;
     } catch (e) {
       return [];
     }
   }
+
 
   Payment? getPayment(String id) {
     // space for business logic (before return / before send)

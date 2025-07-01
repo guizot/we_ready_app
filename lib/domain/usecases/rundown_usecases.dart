@@ -1,6 +1,7 @@
 import 'package:we_ready_app/domain/repositories/hive_repo.dart';
 import '../../data/core/const/hive_values.dart';
 import '../../data/models/local/rundown_model.dart';
+import 'package:intl/intl.dart';
 
 class RundownUseCases {
 
@@ -14,7 +15,16 @@ class RundownUseCases {
       if (selected != null) {
         final eventId = selected['id'];
         final allRundowns = hiveRepo.getAllRundown();
-        return allRundowns.where((rundown) => rundown.eventId == eventId).toList();
+        final filteredRundowns = allRundowns
+            .where((rundown) => rundown.eventId == eventId)
+            .toList();
+        final dateFormat = DateFormat('dd MMM yyyy - HH:mm');
+        filteredRundowns.sort((a, b) {
+          final aTime = dateFormat.parse(a.start);
+          final bTime = dateFormat.parse(b.start);
+          return aTime.compareTo(bTime);
+        });
+        return filteredRundowns;
       }
       return [];
     } catch (e) {

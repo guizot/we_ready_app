@@ -14,7 +14,15 @@ class VendorUseCases {
       if (selected != null) {
         final eventId = selected['id'];
         final allVendors = hiveRepo.getAllVendor();
-        return allVendors.where((vendor) => vendor.eventId == eventId).toList();
+        final filteredVendors = allVendors
+            .where((vendor) => vendor.eventId == eventId)
+            .toList();
+        filteredVendors.sort((a, b) {
+          final aTime = a.createdAt;
+          final bTime = b.createdAt;
+          return bTime.compareTo(aTime);
+        });
+        return filteredVendors;
       }
       return [];
     } catch (e) {
