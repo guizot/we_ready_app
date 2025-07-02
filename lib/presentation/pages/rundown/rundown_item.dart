@@ -113,11 +113,6 @@ class _RundownItemState extends State<RundownItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Image.asset(
-                    //   widget.icon,
-                    //   height: 15,
-                    //   width: 15,
-                    // ),
                     const Icon(
                       Icons.arrow_circle_right_outlined,
                       size: 18,
@@ -137,10 +132,21 @@ class _RundownItemState extends State<RundownItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(width: 28.0),
+                    const IgnorePointer(
+                      child: Opacity(
+                        opacity: 0.0,
+                        child: Icon(
+                          Icons.arrow_circle_right_outlined,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
                         widget.item.description,
+                        maxLines: 8,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],

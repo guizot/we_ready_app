@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         builder: (context, ThemeService themeService, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'We Ready App',
+            title: 'We Ready',
             theme: themeService.currentThemeData(ThemeServiceValues.light),
             darkTheme: themeService.currentThemeData(ThemeServiceValues.dark),
             themeMode: themeService.currentThemeMode,

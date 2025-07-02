@@ -153,6 +153,24 @@ class _VendorSummaryState extends State<VendorSummary> {
                   Text(widget.summary?['unpaid'])
                 ],
               ),
+              const SizedBox(height: 8.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.money_off_rounded,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 8.0),
+                  const Expanded(
+                    child: Text(
+                        "Over Paid"
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Text(widget.summary?['overPaid'])
+                ],
+              ),
 
               const CommonSeparator(
                 color: Colors.grey,

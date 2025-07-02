@@ -3,6 +3,8 @@ import '../../data/core/const/hive_values.dart';
 import '../../data/models/local/rundown_model.dart';
 import 'package:intl/intl.dart';
 
+import '../../presentation/core/constant/initial_values.dart';
+
 class RundownUseCases {
 
   final HiveRepo hiveRepo;
@@ -57,13 +59,7 @@ class RundownUseCases {
     final rundowns = allRundowns.where((r) => r.eventId == eventId).toList();
 
     if (rundowns.isEmpty) {
-      await saveSummaryRundown(eventId, {
-        'sessions': '0 Sessions',
-        'totalHours': '0 Hr 0 Min',
-        'totalDays': '0 Days',
-        'startAt': '-',
-        'endAt': '-',
-      });
+      await saveSummaryRundown(eventId, InitialValues().rundownInit());
       return;
     }
 
@@ -100,15 +96,15 @@ class RundownUseCases {
     final firstStart = startTimes.reduce((a, b) => a.isBefore(b) ? a : b);
     final lastEnd = endTimes.reduce((a, b) => a.isAfter(b) ? a : b);
 
-    final summary = {
-      'sessions': '${rundowns.length} Sessions',
+    final updatedSummary = {
+      'sessions': '${rundowns.length} Session${rundowns.length == 1 ? '' : 's'}',
       'totalHours': '$totalHours Hr $totalMinutes Min',
-      'totalDays': '${uniqueDays.length} Days',
+      'totalDays': '${uniqueDays.length} Day${uniqueDays.length == 1 ? '' : 's'}',
       'startAt': dateFormat.format(firstStart),
       'endAt': dateFormat.format(lastEnd),
     };
 
-    await saveSummaryRundown(eventId, summary);
+    await saveSummaryRundown(eventId, updatedSummary);
   }
 
   Future<void> saveSummaryRundown(String eventId, Map<String, dynamic> summary) async {

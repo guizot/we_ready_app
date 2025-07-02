@@ -69,7 +69,8 @@ class PaymentUseCases {
       }
     }
 
-    final unpaid = total - paid;
+    final unpaid = (total - paid) < 0 ? 0 : total - paid;
+    final overPaid = (paid - total) > 0 ? paid - total : 0;
     final unusedBudget = total < budget ? budget - total : 0;
     final overBudget = total > budget ? total - budget : 0;
 
@@ -79,6 +80,7 @@ class PaymentUseCases {
       'overBudget': 'Rp ${overBudget.toCurrencyFormat()}',
       'paid': 'Rp ${paid.toCurrencyFormat()}',
       'unpaid': 'Rp ${unpaid.toCurrencyFormat()}',
+      'overPaid': 'Rp ${overPaid.toCurrencyFormat()}',
       'total': 'Rp ${total.toCurrencyFormat()}',
     };
 

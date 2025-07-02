@@ -1,6 +1,7 @@
 import 'package:we_ready_app/domain/repositories/hive_repo.dart';
 import '../../data/core/const/hive_values.dart';
 import '../../data/models/local/invitation_model.dart';
+import '../../presentation/core/constant/initial_values.dart';
 
 class InvitationUseCases {
 
@@ -56,12 +57,7 @@ class InvitationUseCases {
         .toList();
 
     if (allInvitations.isEmpty) {
-      await saveSummaryInvitation(eventId, {
-        'mails': '0 Mail',
-        'peoples': '0 Peoples',
-        'confirmed': '0',
-        'unconfirmed': '0',
-      });
+      await saveSummaryInvitation(eventId, InitialValues().invitationInit());
       return;
     }
 
@@ -82,8 +78,8 @@ class InvitationUseCases {
     }
 
     final updatedSummary = {
-      'mails': '$totalMails Mail',
-      'peoples': '$totalPeoples Peoples',
+      'mails': '$totalMails Mail${totalMails <= 1 ? '' : 's'}',
+      'peoples': '$totalPeoples People${totalPeoples <= 1 ? '' : 's'}',
       'confirmed': '$confirmed',
       'unconfirmed': '$unconfirmed',
     };
