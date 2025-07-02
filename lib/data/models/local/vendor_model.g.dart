@@ -21,15 +21,16 @@ class VendorAdapter extends TypeAdapter<Vendor> {
       name: fields[1] as String,
       category: fields[2] as String,
       budget: fields[3] as String,
-      eventId: fields[4] as String,
-      createdAt: fields[5] as DateTime,
+      description: fields[4] as String,
+      eventId: fields[5] as String,
+      createdAt: fields[6] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, Vendor obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -39,8 +40,10 @@ class VendorAdapter extends TypeAdapter<Vendor> {
       ..writeByte(3)
       ..write(obj.budget)
       ..writeByte(4)
-      ..write(obj.eventId)
+      ..write(obj.description)
       ..writeByte(5)
+      ..write(obj.eventId)
+      ..writeByte(6)
       ..write(obj.createdAt);
   }
 

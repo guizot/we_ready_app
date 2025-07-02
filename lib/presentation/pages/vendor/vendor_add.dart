@@ -35,6 +35,7 @@ class _VendorAddState extends State<VendorAdd> {
   TextEditingController nameController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController budgetController = TextEditingController();
+  TextEditingController descController = TextEditingController();
   Vendor? vendor;
 
   Map<String, String> populateForm() {
@@ -42,6 +43,7 @@ class _VendorAddState extends State<VendorAdd> {
       'name': nameController.text,
       'category': categoryController.text,
       'budget': budgetController.text.toIntFromFormatted().toString(),
+      'description': descController.text,
     };
   }
 
@@ -55,6 +57,7 @@ class _VendorAddState extends State<VendorAdd> {
           nameController.text = vendor!.name;
           categoryController.text = vendor!.category;
           budgetController.text = int.parse(vendor!.budget).toCurrencyFormat();
+          descController.text = vendor!.description;
         });
       }
     }
@@ -74,6 +77,10 @@ class _VendorAddState extends State<VendorAdd> {
       DialogHandler.showSnackBar(context: context, message: "Budget cannot be empty");
       return;
     }
+    if (formData['description']!.trim().isEmpty) {
+      DialogHandler.showSnackBar(context: context, message: "Description cannot be empty");
+      return;
+    }
     if(widget.id != null) {
       showSaveDialog(context, formData);
     } else {
@@ -86,14 +93,15 @@ class _VendorAddState extends State<VendorAdd> {
       String? eventId = BlocProvider.of<VendorCubit>(context).getSelectedEventId();
       if(eventId != null) {
         await BlocProvider.of<VendorCubit>(context).saveVendor(
-            Vendor(
-                id: widget.id != null ? widget.id! : const Uuid().v4(),
-                name: data['name']!,
-                category: data['category']!,
-                budget: data['budget']!,
-                eventId: eventId,
-                createdAt: widget.id != null ? vendor!.createdAt : DateTime.now(),
-            )
+          Vendor(
+            id: widget.id != null ? widget.id! : const Uuid().v4(),
+            name: data['name']!,
+            category: data['category']!,
+            budget: data['budget']!,
+            description: data['description']!,
+            eventId: eventId,
+            createdAt: widget.id != null ? vendor!.createdAt : DateTime.now(),
+          )
         );
         if(context.mounted) {
           Navigator.pop(context);
@@ -159,6 +167,11 @@ class _VendorAddState extends State<VendorAdd> {
                   inputType: TextInputType.number,
                   preText: "Rp",
                   controller: budgetController,
+                ),
+                TextFieldItem(
+                  title: "Description",
+                  inputType: TextInputType.multiline,
+                  controller: descController
                 ),
               ],
             )
