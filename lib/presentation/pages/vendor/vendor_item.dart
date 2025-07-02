@@ -36,11 +36,6 @@ class _VendorItemState extends State<VendorItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Image.asset(
-                    //   widget.icon,
-                    //   height: 15,
-                    //   width: 15,
-                    // ),
                     const Icon(
                       Icons.arrow_circle_right,
                       size: 18,
@@ -52,6 +47,8 @@ class _VendorItemState extends State<VendorItem> {
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                     const SizedBox(width: 8.0),
@@ -68,7 +65,11 @@ class _VendorItemState extends State<VendorItem> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: Text(widget.item.category),
+                      child: Text(
+                        widget.item.category,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                     ),
                     const SizedBox(width: 8.0),
                     Text("Rp ${int.parse(widget.item.budget).toCurrencyFormat()}")

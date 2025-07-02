@@ -60,6 +60,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                     const SizedBox(width: 8.0)
@@ -97,11 +99,6 @@ class _PaymentSummaryState extends State<PaymentSummary> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   IconValues.pageFacingUp,
-                  //   height: 15,
-                  //   width: 15,
-                  // ),
                   const Icon(
                     Icons.list_alt_rounded,
                     size: 18,
@@ -109,11 +106,21 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   const SizedBox(width: 8.0),
                   const Expanded(
                     child: Text(
-                      "Type"
+                      "Type",
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  Text(widget.item?.category ?? '')
+                  Flexible(
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        widget.item?.category ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                  ),
                 ],
               ),
 

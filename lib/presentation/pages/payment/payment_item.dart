@@ -34,11 +34,6 @@ class _PaymentItemState extends State<PaymentItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Image.asset(
-                    //   IconValues.moneyWithWings,
-                    //   height: 15,
-                    //   width: 15,
-                    // ),
                     const Icon(
                       Icons.attach_money,
                       size: 18,
@@ -50,6 +45,8 @@ class _PaymentItemState extends State<PaymentItem> {
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const SizedBox(width: 8.0),

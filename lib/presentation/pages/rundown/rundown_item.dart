@@ -124,6 +124,8 @@ class _RundownItemState extends State<RundownItem> {
                         style: const TextStyle(
                             fontWeight: FontWeight.w600
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                   ],

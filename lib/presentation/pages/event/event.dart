@@ -112,6 +112,8 @@ class EventPageState extends State<EventPage> {
                       child: Text(
                         context.read<EventCubit>().getSelectedEventName(),
                         style: const TextStyle(fontWeight: FontWeight.w600),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                     const Icon(Icons.keyboard_arrow_down_sharp, size: 24),

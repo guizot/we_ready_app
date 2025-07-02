@@ -33,36 +33,41 @@ class _InvitationItemState extends State<InvitationItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Image.asset(
-                    //   widget.icon,
-                    //   height: 15,
-                    //   width: 15,
-                    // ),
                     const Icon(
                       Icons.account_circle_rounded,
                       size: 18,
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
-                      child: Row(
-                        children: [
-                          Text(
-                            widget.item.name,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          const SizedBox(width: 6.0),
-                          Text(
-                            "(${widget.item.invitationPackage} Pax)",
-                          ),
-                        ],
+                      child: Text(
+                        widget.item.name,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                     const SizedBox(width: 8.0),
                     const Icon(
                       Icons.arrow_forward_ios_rounded,
                       size: 15,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.account_circle_outlined,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Text(
+                        "${widget.item.invitationPackage} Pax",
+                      ),
                     ),
                   ],
                 ),
@@ -74,30 +79,30 @@ class _InvitationItemState extends State<InvitationItem> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                        child: Row(
-                          children: [
-                            Icon(
-                              widget.item.confirm == 'true' ? Icons.check_circle_outline_rounded : Icons.remove_circle_outline_rounded,
-                              size: 18,
-                            ),
-                            const SizedBox(width: 8.0),
-                            Text(
-                              widget.item.confirm == 'true' ? "Confirmed" : "Unconfirmed",
-                            )
-                          ],
-                        )
+                      child: Row(
+                        children: [
+                          Icon(
+                            widget.item.confirm == 'true' ? Icons.check_circle_outline_rounded : Icons.remove_circle_outline_rounded,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8.0),
+                          Text(
+                            widget.item.confirm == 'true' ? "Confirmed" : "Unconfirmed",
+                          )
+                        ],
+                      )
                     ),
                     const SizedBox(width: 8.0),
-                    Row(
-                      children: [
-                        // Image.asset(
-                        //   widget.iconType,
-                        //   height: 15,
-                        //   width: 15,
-                        // ),
-                        // const SizedBox(width: 8.0),
-                        Text(widget.item.category)
-                      ],
+                    Flexible(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          widget.item.category ?? '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
                     )
                   ],
                 ),
