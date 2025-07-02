@@ -97,7 +97,7 @@ class _InvitationItemState extends State<InvitationItem> {
                       child: Container(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          widget.item.category ?? '',
+                          widget.item.category,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.right,
