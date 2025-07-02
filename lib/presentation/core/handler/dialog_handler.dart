@@ -5,12 +5,13 @@ class DialogHandler {
   static void showBottomSheet({
     required BuildContext context,
     required Widget child,
+    bool isCancelable = true
   }) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      // isDismissible: false,
-      // enableDrag: false,
+      isDismissible: isCancelable,
+      enableDrag: isCancelable,
       builder: (BuildContext context) {
         final maxHeight = MediaQuery.of(context).size.height * 0.8;
         return Container(
@@ -61,9 +62,11 @@ class DialogHandler {
     required String description,
     required String confirmText,
     required VoidCallback onConfirm,
+    bool isCancelable = true
   }) {
     showBottomSheet(
       context: context,
+      isCancelable: isCancelable,
       child: Container(
         padding: const EdgeInsets.all(16.0),
         child: SizedBox(

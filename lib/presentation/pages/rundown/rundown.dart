@@ -5,6 +5,7 @@ import 'package:we_ready_app/presentation/pages/rundown/rundown_item.dart';
 import '../../../data/models/local/rundown_model.dart';
 import '../../../injector.dart';
 import '../../core/constant/routes_values.dart';
+import '../../core/handler/dialog_handler.dart';
 import '../../core/widget/empty_state.dart';
 import '../../core/widget/loading_state.dart';
 import 'cubit/rundown_cubit.dart';
@@ -40,6 +41,17 @@ class RundownPageState extends State<RundownPage> {
   void refreshData() {
     context.read<RundownCubit>().getAllRundown();
     setState(() {});
+  }
+
+  void showDataWarning() {
+    DialogHandler.showConfirmDialog(
+      context: context,
+      title: "Data Protection",
+      description: "All data is stored locally on your device. Uninstalling or clearing the app will permanently delete it. Be sure to back up anything important.",
+      confirmText: "I Understand",
+      onConfirm: () => Navigator.pop(context),
+      isCancelable: false
+    );
   }
 
   void navigateRundownAdd() {
@@ -78,6 +90,7 @@ class RundownPageState extends State<RundownPage> {
             subtitle: "You haven’t added any rundown. Once you do, they’ll appear here.",
             tapText: "Add Rundown +",
             onTap: navigateRundownAdd,
+            onLearn: showDataWarning,
           );
         } else if (state is RundownLoaded) {
           return rundownLoaded(state.rundowns);

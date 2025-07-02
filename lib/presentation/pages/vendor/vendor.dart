@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:we_ready_app/data/models/local/vendor_model.dart';
 import '../../../injector.dart';
 import '../../core/constant/routes_values.dart';
+import '../../core/handler/dialog_handler.dart';
 import '../../core/widget/empty_state.dart';
 import '../../core/widget/loading_state.dart';
 import 'cubit/vendor_cubit.dart';
@@ -41,6 +42,17 @@ class VendorPageState extends State<VendorPage> {
     setState(() {});
   }
 
+  void showDataWarning() {
+    DialogHandler.showConfirmDialog(
+      context: context,
+      title: "Data Protection",
+      description: "All data is stored locally on your device. Uninstalling or clearing the app will permanently delete it. Be sure to back up anything important.",
+      confirmText: "I Understand",
+      onConfirm: () => Navigator.pop(context),
+      isCancelable: false
+    );
+  }
+
   void navigateVendorAdd() {
     Navigator.pushNamed(context, RoutesValues.vendorAdd).then((value) => refreshData());
   }
@@ -77,6 +89,7 @@ class VendorPageState extends State<VendorPage> {
             subtitle: "You haven’t added any vendors. Once you do, they’ll appear here.",
             tapText: "Add Vendor +",
             onTap: navigateVendorAdd,
+            onLearn: showDataWarning,
           );
         } else if (state is VendorLoaded) {
           return vendorLoaded(state.vendors);

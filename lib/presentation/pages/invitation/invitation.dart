@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/local/invitation_model.dart';
 import '../../../injector.dart';
 import '../../core/constant/routes_values.dart';
+import '../../core/handler/dialog_handler.dart';
 import '../../core/widget/empty_state.dart';
 import '../../core/widget/loading_state.dart';
 import 'cubit/invitation_cubit.dart';
@@ -41,6 +42,17 @@ class InvitationPageState extends State<InvitationPage> {
     setState(() {});
   }
 
+  void showDataWarning() {
+    DialogHandler.showConfirmDialog(
+      context: context,
+      title: "Data Protection",
+      description: "All data is stored locally on your device. Uninstalling or clearing the app will permanently delete it. Be sure to back up anything important.",
+      confirmText: "I Understand",
+      onConfirm: () => Navigator.pop(context),
+      isCancelable: false
+    );
+  }
+
   void navigateInvitationAdd() {
     Navigator.pushNamed(context, RoutesValues.invitationAdd).then((value) => refreshData());
   }
@@ -77,6 +89,7 @@ class InvitationPageState extends State<InvitationPage> {
             subtitle: "You haven’t added any invitation. Once you do, they’ll appear here.",
             tapText: "Add Invitation +",
             onTap: navigateInvitationAdd,
+            onLearn: showDataWarning,
           );
         } else if (state is InvitationLoaded) {
           return invitationLoaded(state.invitations);

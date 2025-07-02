@@ -80,6 +80,16 @@ class EventPageState extends State<EventPage> {
     );
   }
 
+  void showDataWarning() {
+    DialogHandler.showConfirmDialog(
+      context: context,
+      title: "Data Protection",
+      description: "All data is stored locally on your device. Uninstalling or clearing the app will permanently delete it. Be sure to back up anything important.",
+      confirmText: "I Understand",
+      onConfirm: () => Navigator.pop(context),
+      isCancelable: false
+    );
+  }
 
   void navigateVendorAdd() {
     Navigator.pushNamed(context, RoutesValues.eventAdd).then((value) => refreshData());
@@ -147,6 +157,7 @@ class EventPageState extends State<EventPage> {
             subtitle: "You haven’t added any events. Once you do, they’ll appear here.",
             tapText: "Add Event +",
             onTap: navigateVendorAdd,
+            onLearn: showDataWarning,
           );
         }
         else if (state is EventLoaded) {

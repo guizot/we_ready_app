@@ -6,6 +6,7 @@ class EmptyState extends StatelessWidget {
   final String subtitle;
   final String tapText;
   final VoidCallback onTap;
+  final VoidCallback onLearn;
 
   const EmptyState({
     super.key,
@@ -13,6 +14,7 @@ class EmptyState extends StatelessWidget {
     required this.subtitle,
     required this.tapText,
     required this.onTap,
+    required this.onLearn,
   });
 
   @override
@@ -63,6 +65,18 @@ class EmptyState extends StatelessWidget {
                           ),
                         )
                     )
+                ),
+                const SizedBox(height: 20.0),
+                GestureDetector(
+                  onTap: onLearn,
+                  child: const Text(
+                    "Learn Data Protection",
+                    style: TextStyle(
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
                 ),
               ],
             )
